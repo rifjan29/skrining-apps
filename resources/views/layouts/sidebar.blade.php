@@ -16,6 +16,12 @@
                     <span class="text">Dashboard</span>
                 </a>
             </li>
+            <li class="menu-item">
+                <a class="menu-link" href="index.html">
+                    <i class="icon material-icons md-account_circle"></i>
+                    <span class="text">User</span>
+                </a>
+            </li>
 
             <li class="menu-item">
                 <a class="menu-link" href="page-reviews.html">

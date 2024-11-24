@@ -12,9 +12,9 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
         <!-- Scripts -->
-
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         @vite(['resources/assets/css/main.css',
-            'resources/assets/js/vendors/jquery-3.6.0.min.js',
+            // 'resources/assets/js/vendors/jquery-3.6.0.min.js',
             'resources/assets/js/vendors/bootstrap.bundle.min.js',
             'resources/assets/js/vendors/select2.min.js',
             'resources/assets/js/vendors/perfect-scrollbar.js',
@@ -23,6 +23,8 @@
             'resources/assets/js/main.js',
             'resources/assets/js/custom-chart.js',
         ])
+        @stack('css')
+        @stack('js')
     </head>
     <body class="font-sans antialiased">
         <div class="screen-overlay"></div>

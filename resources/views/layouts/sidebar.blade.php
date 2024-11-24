@@ -10,14 +10,14 @@
     </div>
     <nav>
         <ul class="menu-aside">
-            <li class="menu-item active">
-                <a class="menu-link" href="index.html">
+            <li class="menu-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+                <a class="menu-link" href="{{ route('dashboard') }}">
                     <i class="icon material-icons md-home"></i>
                     <span class="text">Dashboard</span>
                 </a>
             </li>
-            <li class="menu-item">
-                <a class="menu-link" href="index.html">
+            <li class="menu-item {{ Request::segment(2) == 'user' ? 'active' : '' }}">
+                <a class="menu-link" href="{{ route('user.index') }}">
                     <i class="icon material-icons md-account_circle"></i>
                     <span class="text">User</span>
                 </a>

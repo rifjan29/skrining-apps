@@ -23,32 +23,26 @@
                 </a>
             </li>
 
-            <li class="menu-item">
-                <a class="menu-link" href="page-reviews.html">
+            <li class="menu-item {{ Request::segment(2) == 'skrining-pasien' ? 'active' : '' }}">
+                <a class="menu-link" href="{{ route('skrining-pasien.index') }}">
                     <i class="icon material-icons md-comment"></i>
                     <span class="text">Skrining Pasien</span>
                 </a>
             </li>
-            <li class="menu-item">
-                <a class="menu-link" href="page-brands.html"> <i class="icon material-icons md-stars"></i> <span class="text">Skrining Pasien Covid</span> </a>
+            <li class="menu-item {{ Request::segment(2) == 'skrining-pasien-covid' ? 'active' : '' }}">
+                <a class="menu-link" href="{{ route('skrining-covid.index') }}"> <i class="icon material-icons md-stars"></i> <span class="text">Skrining Pasien Covid</span> </a>
             </li>
         </ul>
         <hr />
         <ul class="menu-aside">
-            <li class="menu-item">
-                <a class="menu-link" disabled href="#">
+            <li class="menu-item has-submenu">
+                <a class="menu-link" href="#">
                     <i class="icon material-icons md-pie_chart"></i>
                     <span class="text">Laporan</span>
                 </a>
-            </li>
-            <li class="menu-item has-submenu">
-                <a class="menu-link" href="#">
-                    <i class="icon material-icons md-settings"></i>
-                    <span class="text">Settings</span>
-                </a>
                 <div class="submenu">
-                    <a href="page-settings-1.html">Setting sample 1</a>
-                    <a href="page-settings-2.html">Setting sample 2</a>
+                    <a href="{{ route('laporan.skrining-pasien') }}">Laporan Skrining Pasien</a>
+                    <a href="page-settings-2.html">Laporan Skrining Pasien Covid</a>
                 </div>
             </li>
         </ul>

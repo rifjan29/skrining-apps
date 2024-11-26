@@ -12,6 +12,9 @@ class ResikoJatuh extends Model
         'pertanyaan_satu',
         'pertanyaan_dua',
         'pertanyaan_tiga',
-        'status_resiko'
+        'status_resiko',
+        'tindakan_satu',
+        'tindakan_dua',
+        'tindakan_tiga',
     ];
 }

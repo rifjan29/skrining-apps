@@ -5,7 +5,7 @@
             <script>
                 document.write(new Date().getFullYear());
             </script>
-            &copy; Nest - HTML Ecommerce Template .
+            &copy; RSD Balung Kabupaten Jember - Rekam Medis Politeknik Negeri Jember .
         </div>
         <div class="col-sm-6">
             <div class="text-sm-end">All rights reserved</div>

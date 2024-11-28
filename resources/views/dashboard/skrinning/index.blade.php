@@ -103,17 +103,7 @@
                                     <td>{{ $item->pasien->no_rm }}</td>
                                     <td>{{ $item->pasien->nama_lengkap }}</td>
                                     <td>
-                                        @if ($item->status_skrining == 'selesai')
-                                            <span class="badge rounded-pill alert-success">SELESAI</span>
-                                        @elseif ($item->status_skrining == 'pending_igd')
-                                            <a href="{{ route('skrining-pasien-igd.edit',$item->pasien->id) }}" class="badge rounded-pill alert-warning">Diarahkan Ke IGD</a>
-                                        @elseif ($item->status_skrining == 'pending_tb')
-                                            <a href="{{ route('skrining-tb.create',$item->id) }}" class="badge rounded-pill alert-warning">POLI TB/Airbone IGD</a>
-                                        @elseif ($item->status_skrining == 'pending')
-                                            <a href="">Dibatalkan</a>
-                                        @else
-                                            <span class="badge rounded-pill alert-danger">BATAL</span>
-                                        @endif
+                                        {!! checkItemStatusSkrining($item) !!}
                                     </td>
                                     <td>{{ $item->created_at }}</td>
                                     <td class="text-start">
@@ -121,7 +111,7 @@
                                             <div>
                                                 <a href="{{ route('skrining-pasien.show',$item->id) }}" class="btn btn-sm font-sm rounded btn-brand"> <i class="material-icons md-panorama_fish_eye"></i> Detail </a>
                                             </div>
-                                            @if (auth()->user()->id != $item->id)
+                                            {{-- @if (auth()->user()->id != $item->id)
                                                 <div class="mx-2">
                                                     <button
                                                         class="btn btn-sm font-sm btn-light rounded btn-delete"
@@ -132,7 +122,7 @@
                                                         <i class="material-icons md-delete_forever"></i> Delete
                                                     </button>
                                                 </div>
-                                            @endif
+                                            @endif --}}
                                         </div>
                                         <!-- dropdown //end -->
                                     </td>

@@ -110,21 +110,7 @@
                                     <td class="border">{{ $item->penjamin_biaya }}</td>
                                     <td class="border">{{ $item->tujuan }}</td>
                                     <td class="border">
-                                        @if ($item->keterangan == null)
-                                            <span class="badge rounded-pill alert-success">SELESAI</span><br>
-                                            <hr>
-                                            <small class="fw-bold text-sm">Skor : {{ $item->total_skor_awal }}</small>
-                                        @else
-                                            @if ($item->keterangan == 'Triase COVID (IGD)')
-                                                <a href="{{ route('skrining-pasien-igd.edit',$item->id) }}" class="badge rounded-pill alert-warning">Diarahkan Ke IGD</a><br>
-                                                <hr>
-                                                <small class="fw-bold text-sm">Skor : {{ $item->total_skor_awal }}</small>
-                                            @else
-                                                <a href="{{ route('skrining-tb.create',$item->id) }}" class="badge rounded-pill alert-warning">POLI TB/Airbone IGD</a><br>
-                                                <hr>
-                                                <small class="fw-bold text-sm">Skor : {{ $item->total_skor_awal }}</small>
-                                            @endif
-                                        @endif
+                                        {!! checkItemStatus($item) !!}
                                     </td>
                                     <td class="border">
                                         @if ($item->keterangan_lanjutan == null)

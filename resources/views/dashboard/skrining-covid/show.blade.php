@@ -91,7 +91,7 @@
                             </li>
 
                             @endif
-                            @if ($pasien->keterangan == 'Poli TB / Airborne IGD')
+                            @if ($pasien->keterangan == 'Klinik TB')
                                 <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Skrining Pasien TB</button>
                                 </li>
@@ -672,7 +672,7 @@
             </div>
         </div>
         <div class="d-flex justify-content-end mb-5">
-            <a href="{{ route('skrining-pasien.index') }}" class="btn btn-outline-danger">Kembali</a>
+            <a href="{{ route('skrining-covid.index') }}" class="btn btn-outline-danger">Kembali</a>
         </div>
         <!-- card end// -->
     </section>

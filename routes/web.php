@@ -32,6 +32,7 @@ Route::prefix('dashboard')->group(function () {
         // Skrining Pasien TB
         Route::get('skrining-pasien-tb/create/{id}',[SkriningPasienTBController::class,'create'])->name('skrining-tb.create');
         Route::post('skrining-pasien-tb/create/store{id}',[SkriningPasienTBController::class,'store'])->name('skrining-tb.store');
+        Route::post('skrining-pasien-tb/create-covid/store{id}',[SkriningPasienTBController::class,'storeCovid'])->name('skrining-tb.store-covid');
         // LAPORAN
         Route::get('laporan-skrining-pasien',[LaporanSkriningPasienController::class,'index'])->name('laporan.skrining-pasien');
         Route::get('laporan-skrining-pasien/show/{id}',[LaporanSkriningPasienController::class,'show'])->name('laporan.skrining-pasien.show');

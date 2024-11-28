@@ -6,6 +6,7 @@ use App\Models\PasienCovid;
 use App\Models\SkriningAwal;
 use App\Models\SkriningLanjutan;
 use App\Models\SkriningPasienIGD;
+use App\Models\SkriningPasienTB;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -123,7 +124,11 @@ class SkriningPasienCovidController extends Controller
         if ($pasien->keterangan == 'Triase COVID (IGD)') {
             $skrining_igd = SkriningPasienIGD::where('pasien_id',$pasien->id)->first();
         }
+        $skrining_tb = null;
+        if ($pasien->keterangan == 'Klinik TB') {
+            $skrining_tb = SkriningPasienTB::where('pasien_id',$pasien->id)->first();
+        }
 
-        return view('dashboard.skrining-covid.show',compact('pasien','skrining_awal','skrining_lanjutan','skrining_igd'));
+        return view('dashboard.skrining-covid.show',compact('pasien','skrining_awal','skrining_lanjutan','skrining_igd','skrining_tb'));
     }
 }

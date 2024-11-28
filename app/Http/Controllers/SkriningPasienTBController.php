@@ -64,9 +64,6 @@ class SkriningPasienTBController extends Controller
             $skrining_tb->pertanyaan_sepuluh = $request->get('gejala10');
             $skrining_tb->save();
 
-            SkriningPasien::where('pasien_id',$id)->first()->update([
-                'status_skrining' => "selesai"
-            ]);
             DB::commit();
             return redirect()->route('skrining-pasien.index')->withStatus('Berhasil menambahkan data.');
         } catch (Exception $th) {

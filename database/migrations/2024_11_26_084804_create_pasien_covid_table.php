@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('pasien_covid', function (Blueprint $table) {
             $table->id();
+            $table->string('kode_transaksi');
             $table->string('no_rm');
             $table->string('nama_lengkap');
             $table->date('tanggal_lahir');
@@ -24,6 +25,7 @@ return new class extends Migration
             $table->string('lainnya_penjamin')->nullable();
             $table->enum('tujuan',['igd','airbone','poli klinik']);
             $table->string('poli_tujuan')->nullable();
+            $table->bigInteger('user_id');
             $table->timestamps();
         });
     }

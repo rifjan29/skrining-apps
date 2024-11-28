@@ -6,7 +6,7 @@ export default defineConfig({
         laravel({
             input: [
                 'resources/assets/css/main.css',
-                'resources/assets/js/vendors/bootstrap.bundle.min.js',
+                // 'resources/assets/js/vendors/bootstrap.bundle.min.js',
                 'resources/assets/js/vendors/select2.min.js',
                 'resources/assets/js/vendors/perfect-scrollbar.js',
                 'resources/assets/js/vendors/jquery.fullscreen.js',

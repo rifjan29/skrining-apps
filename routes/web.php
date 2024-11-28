@@ -27,6 +27,7 @@ Route::prefix('dashboard')->group(function () {
         // Skrining pasien
         Route::resource('skrining-pasien',SkriningPasienController::class);
         // Skrining Pasien IGD
+        Route::post('skrining-pasien-igd/update-covid/{id}',[SkriningPasienIGDController::class,'updateCovid'])->name('skrining-pasien-igd.update-covid');
         Route::resource('skrining-pasien-igd',SkriningPasienIGDController::class);
         // Skrining Pasien TB
         Route::get('skrining-pasien-tb/create/{id}',[SkriningPasienTBController::class,'create'])->name('skrining-tb.create');
@@ -40,6 +41,9 @@ Route::prefix('dashboard')->group(function () {
         Route::get('cetak-skrining-pasien-tb/{id}',[CetakController::class,'cetakSkrinignPasienTB'])->name('cetak.skrining-pasien.tb');
         // SKRINING PASIEN COVID
         Route::get('skrining-pasien-covid',[SkriningPasienCovidController::class,'index'])->name('skrining-covid.index');
+        Route::get('skrining-pasien-covid/create',[SkriningPasienCovidController::class,'create'])->name('skrining-covid.create');
+        Route::post('skrining-pasien-covid/store',[SkriningPasienCovidController::class,'store'])->name('skrining-covid.store');
+        Route::get('skrining-pasien-covid/show/{id}',[SkriningPasienCovidController::class,'show'])->name('skrining-covid.show');
     });
 
 });

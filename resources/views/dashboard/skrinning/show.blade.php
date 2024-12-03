@@ -63,6 +63,52 @@
             }
         }
     </script>
+    <script>
+        $(document).ready(function () {
+            const editButton = $('#editButton');
+            const saveButton = $('#saveButton');
+            const inputs = $('input, textarea, select');
+
+            editButton.click(function () {
+                inputs.prop('readonly', false);
+                $('input[type="radio"]').prop('disabled', false);
+                editButton.addClass('d-none');
+                saveButton.removeClass('d-none');
+            });
+
+            // saveButton.click(function () {
+            //     const data = {};
+            //     inputs.each(function () {
+            //         const name = $(this).attr('name');
+            //         const value = $(this).val();
+            //         if (name) {
+            //             data[name] = value;
+            //         }
+            //     });
+            //     let url = `{{ route('skrining-pasien.update',$skrining_tb->pasien_id) }}`
+            //     $.ajax({
+            //         url: `${url}`,
+            //         method: 'PATCH',
+            //         data: data,
+            //         headers: {
+            //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            //         },
+            //         success: function (response) {
+            //             alert(response.message);
+            //             inputs.prop('readonly', true);
+            //             $('input[type="radio"]').prop('disabled', true);
+            //             saveButton.addClass('d-none');
+            //             editButton.removeClass('d-none');
+            //         },
+            //         error: function (xhr) {
+            //             alert('Terjadi kesalahan: ' + xhr.responseJSON.message);
+            //             saveButton.addClass('d-none');
+            //             editButton.removeClass('d-none');
+            //         }
+            //     });
+            // });
+        });
+    </script>
     @endpush
     <section class="content-main mb-5">
         <div class="content-header">
@@ -76,11 +122,12 @@
                 <div class="card mb-4">
                     <header class="card-header">
                         <div class="d-flex justify-content-between">
-                            <h4>Tambah Data Skrining Pasien</h4>
+                            <h4>Show Data Skrining Pasien</h4>
                         </div>
 
                     </header>
                     <div class="card-body">
+                        @include('components.notification')
                         <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                             <li class="nav-item" role="presentation">
                             <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Skrining Pasien</button>
@@ -883,7 +930,15 @@
                                 @endisset
                             </div>
                             <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
-                                <h5>Data Pasien</h5>
+                                <div class="d-flex justify-content-between mb-3">
+                                    <h5>Data Pasien</h5>
+                                    <button id="editButton" class="btn btn-primary">Edit</button>
+
+                                </div>
+                                <hr>
+                                <form action="{{ route('skrining-pasien.update',$skrining_tb->pasien_id) }}" method="POST">
+                                    @csrf
+                                    @method("PUT")
                                 <div class="table-responsive">
                                     <table class="table table-bordered table-responsive-sm">
                                         <tbody>
@@ -922,6 +977,7 @@
                                 </div>
                                 <hr>
                                 @isset($skrining_tb)
+
                                     <!-- Tanggal dan Jam -->
                                     <div class="row mb-3">
                                         <div class="col-md-6">
@@ -1020,6 +1076,10 @@
                                     </table>
 
                                 @endisset
+                                <div class="d-flex justify-content-end">
+                                    <button id="saveButton" type="submit" class="btn btn-primary d-none">Simpan</button>
+                                </div>
+                                </form>
 
                             </div>
                         </div>

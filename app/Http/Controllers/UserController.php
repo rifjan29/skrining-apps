@@ -6,8 +6,10 @@ use App\Models\User;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -16,7 +18,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $data = User::latest()->get();
+        $data = User::with('roles')->latest()->get();
         return view('dashboard.user.index',compact('data'));
     }
 
@@ -39,12 +41,16 @@ class UserController extends Controller
             'password' => 'required',
         ]);
         try {
+            $role = Role::where('name', $request->get('role'))->first();
             DB::beginTransaction();
             $user = new User;
             $user->name = $request->get('nama');
             $user->email = $request->get('email');
             $user->password = Hash::make($request->get('password'));
             $user->save();
+            if ($role) {
+                $user->assignRole($role);
+            }
             DB::commit();
             return redirect()->route('user.index')->withStatus('Berhasil menambahkan data');
         } catch (Exception $th) {
@@ -96,12 +102,15 @@ class UserController extends Controller
             $update = User::find($id);
             $update->name = $request->get('nama');
             $update->email = $request->get('email');
-            if ($request->has('password')) {
+            if ($request->has('password') || $request->get('password') != '') {
                 $update->password = Hash::make($request->get('password'));
             }
             $update->update();
             DB::commit();
-            return redirect()->route('user.index')->withStatus('Berhasil mengganti data.');
+            if (Auth::user()->role == 'Admin') {
+                return redirect()->route('user.index')->withStatus('Berhasil mengganti data.');
+            }
+            return redirect()->back();
         } catch (Exception $th) {
             DB::rollBack();
             return redirect()->route('user.index')->withError('Terjadi kesalahan.');

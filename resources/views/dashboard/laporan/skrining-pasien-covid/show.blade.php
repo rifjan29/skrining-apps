@@ -63,20 +63,6 @@
             }
         }
     </script>
-    <script>
-        $(document).ready(function () {
-            const editButton = $('#editButton');
-            const saveButton = $('#saveButton');
-            const inputs = $('input, textarea, select');
-
-            editButton.click(function () {
-                inputs.prop('readonly', false);
-                $('input[type="radio"]').prop('disabled', false);
-                editButton.addClass('d-none');
-                saveButton.removeClass('d-none');
-            });
-        });
-    </script>
     @endpush
     <section class="content-main mb-5">
         <div class="content-header">
@@ -90,12 +76,11 @@
                 <div class="card mb-4">
                     <header class="card-header">
                         <div class="d-flex justify-content-between">
-                            <h4>Detail Data Skrining Pasien</h4>
+                            <h4>Detail Data Skrining Pasien Covid</h4>
                         </div>
 
                     </header>
                     <div class="card-body">
-                        @include('components.notification')
                         <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                             <li class="nav-item" role="presentation">
                             <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Skrining Pasien</button>
@@ -114,6 +99,14 @@
                         </ul>
                         <div class="tab-content" id="pills-tabContent">
                             <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                                <div class="col-md-12 d-flex justify-content-between">
+                                    <h4>DATA DIRI PASIEN</h4>
+                                    <a href="{{ route('cetak.skrining-pasien-covid',$pasien->id) }}" type="button" class="btn btn-danger btn-icon-text">
+                                        <i class="material-icons md-picture_as_pdf me-2 btn-icon-prepend"></i>
+                                        Cetak PDF
+                                    </a>
+                                </div>
+                                <hr>
                                  <!-- Tanggal dan Jam -->
                                 <div class="row">
                                     <div class="col-md-6">
@@ -216,40 +209,43 @@
                                         <td>1</td>
                                         <td>Demam / Menggigil / Gejala 1 minggu terakhir</td>
                                         <td>
-                                            <input type="radio" name="gejala1" value="1" {{ $skrining_awal[0]->skor == 1 ? "checked" : "" }} class="form-check-input gejala" />
+                                            <div class="form-check">
+
+                                                <input type="radio" name="gejala_pasien1" value="1" class="form-check-input gejala" {{ $skrining_awal[0]->skor == 1 ? "checked" : "" }}/>
+                                            </div>
                                         </td>
                                         <td>
-                                            <input type="radio" name="gejala1" value="0" {{ $skrining_awal[0]->skor == 0 ? "checked" : "" }} class="form-check-input gejala" />
+                                            <input type="radio" name="gejala_pasien1" value="0" {{ $skrining_awal[0]->skor == 0 ? "checked" : "" }} class="form-check-input gejala" />
                                         </td>
                                         </tr>
                                         <tr>
                                         <td>2</td>
                                         <td>Batuk / Pilek / Sakit Tenggorokan</td>
                                         <td>
-                                            <input type="radio" name="gejala2" value="1" {{ $skrining_awal[1]->skor == 1 ? "checked" : "" }} class="form-check-input gejala" />
+                                            <input type="radio" name="gejala_pasien2" value="1" {{ $skrining_awal[1]->skor == 1 ? "checked" : "" }} class="form-check-input gejala" />
                                         </td>
                                         <td>
-                                            <input type="radio" name="gejala2" value="0" {{ $skrining_awal[1]->skor == 0 ? "checked" : "" }} class="form-check-input gejala" />
+                                            <input type="radio" name="gejala_pasien2" value="0" {{ $skrining_awal[1]->skor == 0 ? "checked" : "" }} class="form-check-input gejala" />
                                         </td>
                                         </tr>
                                         <tr>
                                         <td>3</td>
                                         <td>Sesak Napas</td>
                                         <td>
-                                            <input type="radio" name="gejala3" {{ $skrining_awal[2]->skor == 1 ? "checked" : "" }} value="1" class="form-check-input gejala" />
+                                            <input type="radio" name="gejala_pasien3" {{ $skrining_awal[2]->skor == 1 ? "checked" : "" }} value="1" class="form-check-input gejala" />
                                         </td>
                                         <td>
-                                            <input type="radio" name="gejala3" {{ $skrining_awal[2]->skor == 0 ? "checked" : "" }} value="0" class="form-check-input gejala" />
+                                            <input type="radio" name="gejala_pasien3" {{ $skrining_awal[2]->skor == 0 ? "checked" : "" }} value="0" class="form-check-input gejala" />
                                         </td>
                                         </tr>
                                         <tr>
                                         <td>4</td>
                                         <td>Riwayat Kontak erat dengan pasien Confirm Covid-19</td>
                                         <td>
-                                            <input type="radio" name="gejala4" {{ $skrining_awal[3]->skor == 1 ? "checked" : "" }} value="1" class="form-check-input gejala" />
+                                            <input type="radio" name="gejala_pasien4" {{ $skrining_awal[3]->skor == 1 ? "checked" : "" }} value="1" class="form-check-input gejala" />
                                         </td>
                                         <td>
-                                            <input type="radio" name="gejala4" {{ $skrining_awal[3]->skor == 0 ? "checked" : "" }} value="0" class="form-check-input gejala" />
+                                            <input type="radio" name="gejala_pasien4" {{ $skrining_awal[3]->skor == 0 ? "checked" : "" }} value="0" class="form-check-input gejala" />
                                         </td>
                                         </tr>
                                     </tbody>
@@ -542,15 +538,7 @@
                                 @endisset
                             </div>
                             <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
-                                <div class="d-flex justify-content-between mb-3">
-                                    <h5>Data Pasien</h5>
-                                    <button id="editButton" class="btn btn-primary">Edit</button>
-
-                                </div>
-                                <hr>
-                                <form action="{{ route('skrining-covid.update',$skrining_tb->pasien_id) }}" method="POST">
-                                    @csrf
-                                    @method("PUT")
+                                <h5>Data Pasien</h5>
                                 <div class="table-responsive">
                                     <table class="table table-bordered table-responsive-sm">
                                         <tbody>
@@ -687,10 +675,6 @@
                                     </table>
 
                                 @endisset
-                                <div class="d-flex justify-content-end">
-                                    <button id="saveButton" type="submit" class="btn btn-primary d-none">Simpan</button>
-                                </div>
-                                </form>
 
                             </div>
                         </div>

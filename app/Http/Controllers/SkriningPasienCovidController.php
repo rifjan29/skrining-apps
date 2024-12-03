@@ -30,21 +30,21 @@ class SkriningPasienCovidController extends Controller
             'tglLahir' => 'required|date|before:today',
             'alamat' => 'required|string|max:255',
             'komorbid' => 'nullable|string|max:255',
-            'jenisPasien' => 'required|in:baru,lama',
-            'penjaminBiaya' => 'required|in:umum,bpjs,spm,jasa_raharja',
-            'gejala1' => 'required|in:0,1,5',
-            'gejala2' => 'required|in:0,1,5',
-            'gejala3' => 'required|in:0,1,5',
-            'gejala4' => 'required|in:0,1,5',
-            'gejala_lanjutan1' => 'required|in:0,1,5',
-            'gejala_lanjutan2' => 'required|in:0,1,5',
-            'gejala_lanjutan3' => 'required|in:0,1,5',
-            'gejala_lanjutan4' => 'required|in:0,1,5',
-            'gejala_lanjutan5' => 'required|in:0,1,5',
-            'gejala_lanjutan6' => 'required|in:0,1,5',
-            'gejala_lanjutan7' => 'required|in:0,1,5',
-            'gejala_lanjutan8' => 'required|in:0,1,5',
-            'gejala_lanjutan9' => 'required|in:0,1,5',
+            // 'jenisPasien' => 'required|in:baru,lama',
+            // 'penjaminBiaya' => 'required|in:umum,bpjs,spm,jasa_raharja',
+            // 'gejala1' => 'required|in:0,1,5',
+            // 'gejala2' => 'required|in:0,1,5',
+            // 'gejala3' => 'required|in:0,1,5',
+            // 'gejala4' => 'required|in:0,1,5',
+            // 'gejala_lanjutan1' => 'required|in:0,1,5',
+            // 'gejala_lanjutan2' => 'required|in:0,1,5',
+            // 'gejala_lanjutan3' => 'required|in:0,1,5',
+            // 'gejala_lanjutan4' => 'required|in:0,1,5',
+            // 'gejala_lanjutan5' => 'required|in:0,1,5',
+            // 'gejala_lanjutan6' => 'required|in:0,1,5',
+            // 'gejala_lanjutan7' => 'required|in:0,1,5',
+            // 'gejala_lanjutan8' => 'required|in:0,1,5',
+            // 'gejala_lanjutan9' => 'required|in:0,1,5',
         ]);
         try {
             DB::beginTransaction();
@@ -130,5 +130,32 @@ class SkriningPasienCovidController extends Controller
         }
 
         return view('dashboard.skrining-covid.show',compact('pasien','skrining_awal','skrining_lanjutan','skrining_igd','skrining_tb'));
+    }
+
+    public function update(Request $request, $id) {
+        try {
+            $skrining_tb = SkriningPasienTB::where('pasien_id',$id)->first();
+            $skrining_tb->tanggal_kedatangan = $request->get('tanggal_kedatangan');
+            $skrining_tb->tanggal_periksa = $request->get('tanggal_periksa');
+            $skrining_tb->jam_datang = $request->get('jam_datang');
+            $skrining_tb->jam_periksa = $request->get('jam_periksa');
+            $skrining_tb->pertanyaan_satu = $request->get('gejala1');
+            $skrining_tb->pertanyaan_dua = $request->get('gejala2');
+            $skrining_tb->pertanyaan_tiga = $request->get('gejala3');
+            $skrining_tb->pertanyaan_empat = $request->get('gejala4');
+            $skrining_tb->pertanyaan_lima = $request->get('gejala5');
+            $skrining_tb->pertanyaan_enam = $request->get('gejala6');
+            $skrining_tb->pertanyaan_tujuh = $request->get('gejala7');
+            $skrining_tb->pertanyaan_delapan = $request->get('gejala8');
+            $skrining_tb->pertanyaan_sembilan = $request->get('gejala9');
+            $skrining_tb->pertanyaan_sepuluh = $request->get('gejala10');
+            $skrining_tb->update();
+
+            DB::commit();
+            return redirect()->route('skrining-covid.show',$id)->withStatus('Berhasil mengganti data.');
+        } catch (Exception $th) {
+            DB::rollBack();
+            return redirect()->route('skrining-covid.show',$id)->withError('Terjadi kesalahan.');
+        }
     }
 }

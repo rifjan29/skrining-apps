@@ -229,7 +229,30 @@ class SkriningPasienController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        try {
+            $skrining_tb = SkriningPasienTB::where('pasien_id',$id)->first();
+            $skrining_tb->tanggal_kedatangan = $request->get('tanggal_kedatangan');
+            $skrining_tb->tanggal_periksa = $request->get('tanggal_periksa');
+            $skrining_tb->jam_datang = $request->get('jam_datang');
+            $skrining_tb->jam_periksa = $request->get('jam_periksa');
+            $skrining_tb->pertanyaan_satu = $request->get('gejala1');
+            $skrining_tb->pertanyaan_dua = $request->get('gejala2');
+            $skrining_tb->pertanyaan_tiga = $request->get('gejala3');
+            $skrining_tb->pertanyaan_empat = $request->get('gejala4');
+            $skrining_tb->pertanyaan_lima = $request->get('gejala5');
+            $skrining_tb->pertanyaan_enam = $request->get('gejala6');
+            $skrining_tb->pertanyaan_tujuh = $request->get('gejala7');
+            $skrining_tb->pertanyaan_delapan = $request->get('gejala8');
+            $skrining_tb->pertanyaan_sembilan = $request->get('gejala9');
+            $skrining_tb->pertanyaan_sepuluh = $request->get('gejala10');
+            $skrining_tb->update();
+
+            DB::commit();
+            return redirect()->route('skrining-pasien.show',$id)->withStatus('Berhasil mengganti data.');
+        } catch (Exception $th) {
+            DB::rollBack();
+            return redirect()->route('skrining-pasien.index')->withError('Terjadi kesalahan.');
+        }
     }
 
     /**

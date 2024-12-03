@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pasien;
+use App\Models\PasienCovid;
+use App\Models\SkriningAwal;
+use App\Models\SkriningLanjutan;
 use App\Models\SkriningPasien;
 use App\Models\SkriningPasienIGD;
 use App\Models\SkriningPasienTB;
@@ -88,4 +91,53 @@ class CetakController extends Controller
         }
         return view('dashboard.laporan.skrining-pasien.pdf.cetak-igd',compact('pasien','skrining_tb','skrining_igd','skrining'));
     }
+
+    public function cetakSkrinignPasienCovid($id) {
+        $pasien = PasienCovid::with('user')->find($id);
+        $skrining_awal = SkriningAwal::where('pasien_id',$pasien->id)->get();
+        $skrining_lanjutan = SkriningLanjutan::where('pasien_id',$pasien->id)->get();
+        $skrining_igd = null;
+        if ($pasien->keterangan == 'Triase COVID (IGD)') {
+            $skrining_igd = SkriningPasienIGD::where('pasien_id',$pasien->id)->first();
+        }
+        $skrining_tb = null;
+        if ($pasien->keterangan == 'Klinik TB') {
+            $skrining_tb = SkriningPasienTB::where('pasien_id',$pasien->id)->first();
+        }
+
+        return view('dashboard.laporan.skrining-pasien-covid.pdf.covid',compact('pasien','skrining_awal','skrining_lanjutan','skrining_igd','skrining_tb'));
+
+    }
+
+    public function cetakSkrinignPasienCovidTB($id)  {
+        $pasien = PasienCovid::with('user')->find($id);
+        $skrining_awal = SkriningAwal::where('pasien_id',$pasien->id)->get();
+        $skrining_lanjutan = SkriningLanjutan::where('pasien_id',$pasien->id)->get();
+        $skrining_igd = null;
+        if ($pasien->keterangan == 'Triase COVID (IGD)') {
+            $skrining_igd = SkriningPasienIGD::where('pasien_id',$pasien->id)->first();
+        }
+        $skrining_tb = null;
+        if ($pasien->keterangan == 'Klinik TB') {
+            $skrining_tb = SkriningPasienTB::where('pasien_id',$pasien->id)->first();
+        }
+        return view('dashboard.laporan.skrining-pasien.pdf.cetak-tb',compact('pasien','skrining_tb','skrining_igd','skrining'));
+
+    }
+
+    public function cetakSkrinignPasienCovidIGD($id) {
+        $pasien = PasienCovid::with('user')->find($id);
+        $skrining_awal = SkriningAwal::where('pasien_id',$pasien->id)->get();
+        $skrining_lanjutan = SkriningLanjutan::where('pasien_id',$pasien->id)->get();
+        $skrining_igd = null;
+        if ($pasien->keterangan == 'Triase COVID (IGD)') {
+            $skrining_igd = SkriningPasienIGD::where('pasien_id',$pasien->id)->first();
+        }
+        $skrining_tb = null;
+        if ($pasien->keterangan == 'Klinik TB') {
+            $skrining_tb = SkriningPasienTB::where('pasien_id',$pasien->id)->first();
+        }
+        return view('dashboard.laporan.skrining-pasien.pdf.cetak-igd',compact('pasien','skrining_tb','skrining_igd','skrining'));
+    }
+
 }

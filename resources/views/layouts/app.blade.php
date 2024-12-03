@@ -4,7 +4,6 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
-
         <title>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts -->
@@ -21,13 +20,16 @@
             'resources/assets/js/vendors/select2.min.js',
             'resources/assets/js/vendors/perfect-scrollbar.js',
             'resources/assets/js/vendors/jquery.fullscreen.js',
-            'resources/assets/js/vendors/chart.js',
+            // 'resources/assets/js/vendors/chart.js',
             'resources/assets/js/main.js',
-            'resources/assets/js/custom-chart.js',
+            // 'resources/assets/js/custom-chart.js',
         ])
         @stack('css')
         @stack('js')
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
     </head>
     <body class="font-sans antialiased">
         <div class="screen-overlay"></div>

@@ -90,6 +90,7 @@
                                 <th scope="col">Nama</th>
                                 <th scope="col">Email</th>
                                 <th scope="col">Tanggal</th>
+                                <th scope="col">Hak Akses </th>
                                 <th scope="col" class="text-start">Action</th>
                             </tr>
                         </thead>
@@ -100,6 +101,7 @@
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->email }}</td>
                                     <td>{{ $item->created_at }}</td>
+                                    <td>{{ $item->roles[0]->name ?? '-' }}</td>
                                     <td class="text-start">
                                         <div class="d-flex justify-content-start">
                                             <div>

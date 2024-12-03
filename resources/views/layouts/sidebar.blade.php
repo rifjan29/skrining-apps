@@ -16,12 +16,14 @@
                     <span class="text">Dashboard</span>
                 </a>
             </li>
+            @role('Admin')
             <li class="menu-item {{ Request::segment(2) == 'user' ? 'active' : '' }}">
                 <a class="menu-link" href="{{ route('user.index') }}">
                     <i class="icon material-icons md-account_circle"></i>
                     <span class="text">User</span>
                 </a>
             </li>
+            @endrole
 
             <li class="menu-item {{ Request::segment(2) == 'skrining-pasien' ? 'active' : '' }}">
                 <a class="menu-link" href="{{ route('skrining-pasien.index') }}">
@@ -42,7 +44,7 @@
                 </a>
                 <div class="submenu">
                     <a href="{{ route('laporan.skrining-pasien') }}">Laporan Skrining Pasien</a>
-                    <a href="page-settings-2.html">Laporan Skrining Pasien Covid</a>
+                    <a href="{{ route('laporan.skrining-covid') }}">Laporan Skrining Pasien Covid</a>
                 </div>
             </li>
         </ul>

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class PasienCovid extends Model
 {
@@ -44,5 +45,9 @@ class PasienCovid extends Model
         }
 
         return $prefix . str_pad($newNumber, 3, '0', STR_PAD_LEFT); // Tambahkan padding 0
+    }
+
+    public function user() {
+        return $this->belongsTo(User::class,'user_id','id');
     }
 }

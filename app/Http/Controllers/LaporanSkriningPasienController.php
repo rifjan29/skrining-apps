@@ -22,31 +22,31 @@ class LaporanSkriningPasienController extends Controller
         return view('dashboard.laporan.skrining-pasien.index',compact('data'));
     }
 
-    public function show(string $id)
+    public function show($id)
     {
         $skrining = SkriningPasien::find($id);
-        $pasien = Pasien::with([
-            'Keluhan',
-            'Kondisi',
-            'ResikoJatuh',
-            'Usia',
-            'GangguanFungsiOrgan',
-            'PrivasiTertentu',
-            'Bahasa',
-            'FastTrack',
-            'Kebutuhan'
-        ])->find($skrining->pasien_id);
+            $pasien = Pasien::with([
+                'Keluhan',
+                'Kondisi',
+                'ResikoJatuh',
+                'Usia',
+                'GangguanFungsiOrgan',
+                'PrivasiTertentu',
+                'Bahasa',
+                'FastTrack',
+                'Kebutuhan'
+            ])->find($skrining->pasien_id);
 
-        $skrining_tb = null;
-        if ($pasien->kondisi->status_kondisi == 'Poli TB / Airborne IGD') {
-            $skrining_tb = SkriningPasienTB::where('pasien_id',$skrining->pasien_id)->first();
-        }
+            $skrining_tb = null;
+            if ($pasien->kondisi->status_kondisi == 'Poli TB / Airborne IGD') {
+                $skrining_tb = SkriningPasienTB::where('pasien_id',$skrining->pasien_id)->first();
+            }
 
-        $skrining_igd = null;
-        if ($pasien->Kondisi->status_kondisi == 'Diarahkan ke IGD') {
-            $skrining_igd = SkriningPasienIGD::where('pasien_id',$skrining->pasien_id)->first();
-        }
-        return view('dashboard.laporan.skrining-pasien.show',compact('pasien','skrining_tb','skrining_igd','skrining'));
+            $skrining_igd = null;
+            if ($pasien->Kondisi->status_kondisi == 'Diarahkan ke IGD') {
+                $skrining_igd = SkriningPasienIGD::where('pasien_id',$skrining->pasien_id)->first();
+            }
+            return view('dashboard.laporan.skrining-pasien.show',compact('pasien','skrining_tb','skrining_igd','skrining'));
 
     }
 }

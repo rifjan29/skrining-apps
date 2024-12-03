@@ -1,6 +1,9 @@
 <x-app-layout>
     @push('css')
         <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/css/datepicker.min.css" rel="stylesheet">
         <style>
             .page-item.active .page-link{
                 background-color: #219ebc !important;
@@ -11,6 +14,9 @@
     @push('js')
         <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+
         <script>
             $(document).ready(function () {
                 $('#example').DataTable({
@@ -18,52 +24,13 @@
                         emptyTable: "Data tidak ada"
                     }
                 });
-
-                // DELETE BUTTON
-                // Ketika tombol "Hapus" di modal diklik
-                let deleteUrl = '';
-                let deleteId = '';
-
-                // Ketika tombol delete diklik, ambil URL dan ID
-                $('.btn-delete').on('click', function () {
-                    deleteUrl = $(this).data('url');
-                    deleteId = $(this).data('id');
+                $('.datepicker').daterangepicker({
+                    singleDatePicker: true, // Enable single date selection
+                    format: 'yyyy-mm-dd', // Match Laravel's date format
+                    autoclose: true,
+                    todayHighlight: true,
                 });
-                $('#confirmDelete').on('click', function () {
-                    $.ajax({
-                        url: deleteUrl,
-                        type: 'POST',
-                        data: {
-                            _method: 'DELETE', // Laravel membutuhkan method DELETE
-                            _token: $('meta[name="csrf-token"]').attr('content') // CSRF token
-                        },
-                        success: function (response) {
-                            // Sukses, tutup modal dan hapus elemen terkait
-                            $('#deleteModal').modal('hide');
-                            $(`button[data-id="${deleteId}"]`).closest('.mx-2').remove();
 
-                            // Tambahkan alert Bootstrap 5 di halaman
-                            const alert = `
-                                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                    Berhasil menghapus data.
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                </div>
-                            `;
-                            $('#alerts-container').append(alert); // Append alert ke container
-                        },
-                        error: function (xhr) {
-                            $('#deleteModal').modal('hide'); // Tutup modal
-                            const alert = `
-                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    Terjadi kesalahan saat menghapus data!
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                </div>
-                            `;
-                            $('#alerts-container').append(alert); // Append alert ke container
-
-                        }
-                    });
-                });
             })
         </script>
     @endpush
@@ -71,14 +38,28 @@
     <section class="content-main">
         <div class="content-header">
             <h2 class="content-title">{{ ucwords(str_replace('-',' ',Request::segment(2))) }}</h2>
-            @role('Petugas')
-                <div>
-                    <a href="{{ route('skrining-covid.create') }}" class="btn btn-primary"><i class="text-muted material-icons md-post_add"></i>Tambah Data</a>
-                </div>
-            @endrole
         </div>
         @include('components.notification')
         <div id="alerts-container"></div>
+        <div class="card">
+            <div class="card-body">
+                <form method="GET" action="{{ route('laporan.skrining-covid') }}">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="start_date">Start Date:</label>
+                            <input type="text" id="start_date" name="start_date" value="{{ request('start_date') }}" class="form-control datepicker" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="end_date">End Date:</label>
+                            <input type="text" id="end_date" name="end_date" value="{{ request('end_date') }}" class="form-control datepicker" required>
+                        </div>
+                        <div class="col-md-4 mt-4">
+                            <button type="submit" class="btn btn-primary">Filter</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
         <div class="card mb-4">
             <header class="card-header">
                 <h4>List Skrining Pasien</h4>
@@ -129,7 +110,7 @@
                                     <td class="text-start border">
                                         <div class="d-flex justify-content-start">
                                             <div>
-                                                <a href="{{ route('skrining-covid.show',$item->id) }}" class="btn btn-sm font-sm rounded btn-brand"> <i class="material-icons md-panorama_fish_eye"></i> Detail </a>
+                                                <a href="{{ route('laporan.skrining-covid.show',$item->id) }}" class="btn btn-sm font-sm rounded btn-brand"> <i class="material-icons md-panorama_fish_eye"></i> Detail </a>
                                             </div>
                                         </div>
                                         <!-- dropdown //end -->

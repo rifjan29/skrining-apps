@@ -91,6 +91,15 @@
                                         @enderror
                                     </div>
                                 </div>
+                                <div class="col-md-12">
+                                    <div class="mb-4">
+                                        <label for="product_name" class="form-label">Hak Akses </label>
+                                        <select name="role" class="form-select" id="">
+                                            <option value="admin">Admin</option>
+                                            <option value="petugas">Petugas</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
                     </div>
                 </div>

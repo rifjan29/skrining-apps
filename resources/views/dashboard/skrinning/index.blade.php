@@ -71,9 +71,11 @@
     <section class="content-main">
         <div class="content-header">
             <h2 class="content-title">{{ ucwords(str_replace('-',' ',Request::segment(2))) }}</h2>
-            <div>
-                <a href="{{ route('skrining-pasien.create') }}" class="btn btn-primary"><i class="text-muted material-icons md-post_add"></i>Tambah Data</a>
-            </div>
+            @role('Petugas')
+                <div>
+                    <a href="{{ route('skrining-pasien.create') }}" class="btn btn-primary"><i class="text-muted material-icons md-post_add"></i>Tambah Data</a>
+                </div>
+            @endrole
         </div>
         @include('components.notification')
         <div id="alerts-container"></div>

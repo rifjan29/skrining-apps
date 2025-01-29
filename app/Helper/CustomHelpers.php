@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Kondisi;
 use App\Models\SkriningPasienIGD;
 use App\Models\SkriningPasienTB;
 
@@ -12,8 +13,8 @@ if (!function_exists('checkItemStatus')) {
      */
     function checkItemStatus($item)
     {
-        $current_igd = SkriningPasienIGD::where('pasien_id',$item->id)->get();
-        $current_tb = SkriningPasienTB::where('pasien_id',$item->id)->get();
+        $current_igd = SkriningPasienIGD::where('pasien_id',$item->id)->where('status_skrining','skrining_pasien_covid')->get();
+        $current_tb = SkriningPasienTB::where('pasien_id',$item->id)->where('status_skrining','skrining_pasien_covid')->get();
         if (is_null($item->keterangan)) {
             return '<span class="badge rounded-pill alert-success">SELESAI</span><br>
                     <hr>
@@ -58,8 +59,9 @@ if (!function_exists('checkItemStatusSkrining')) {
     {
         $current_igd = SkriningPasienIGD::where('pasien_id',$item->pasien->id)->get();
         $current_tb = SkriningPasienTB::where('pasien_id',$item->id)->get();
+        $kondisi = Kondisi::where('pasien_id', $item->id)->first();
         if ($item->status_skrining === 'selesai') {
-            return '<span class="badge rounded-pill alert-success">SELESAI</span>';
+            return '<span class="badge rounded-pill alert-success">RAWAT JALAN</span>';
         } elseif ($item->status_skrining === 'pending_igd') {
             if (count($current_igd) > 0) {
                 return '<span
@@ -77,7 +79,7 @@ if (!function_exists('checkItemStatusSkrining')) {
         } elseif ($item->status_skrining === 'pending') {
             return '<a href="#">Dibatalkan</a>';
         } else {
-            return '<span class="badge rounded-pill alert-danger">BATAL</span>';
+            return '<span class="badge rounded-pill alert-danger">RAWAT JALAN</span>';
         }
 
     }

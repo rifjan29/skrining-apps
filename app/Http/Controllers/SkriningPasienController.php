@@ -54,14 +54,21 @@ class SkriningPasienController extends Controller
         try {
             DB::beginTransaction();
             $transactionCode = SkriningPasien::generateTransactionCode();
-
-            $pasien = new Pasien;
-            $pasien->no_rm = $request->get('no_rm');
-            $pasien->nama_lengkap = $request->get('nama');
-            $pasien->tanggal_lahir = Carbon::parse($request->get('tgl'));
-            $pasien->alamat = $request->get('alamat');
-            $pasien->save();
-            $id_pasien = $pasien->id;
+            $current_pasien = null;
+            if ($request->has('no_rm_current') || $request->get('no_rm_current') != '') {
+                $current_pasien = Pasien::where('no_rm',$request->get('no_rm'))->first();
+            }
+            if (!$current_pasien) {
+                $pasien = new Pasien;
+                $pasien->no_rm = $request->get('no_rm');
+                $pasien->nama_lengkap = $request->get('nama');
+                $pasien->tanggal_lahir = Carbon::parse($request->get('tgl'));
+                $pasien->alamat = $request->get('alamat');
+                $pasien->save();
+                $id_pasien = $pasien->id;
+            }else{
+                $id_pasien = $current_pasien->id;
+            }
 
             $status_transaksi = 'pending';
             if ($request->get('bilaAda') == 'dipercepat' || $request->get('didahulukan')) {
@@ -71,7 +78,7 @@ class SkriningPasienController extends Controller
             }else if($request->get('bilaAda') == 'poliTB'){
                 $status_transaksi = 'pending_tb';
             }else{
-                $status_transaksi = 'batal';
+                $status_transaksi = 'selesai';
             }
             $transaksi = new SkriningPasien;
             $transaksi->kode_skrining =  $transactionCode;
@@ -82,81 +89,92 @@ class SkriningPasienController extends Controller
             $transaksi->ttd = null;
             $transaksi->save();
 
-            // KELUHAN
-            $gejala = implode(', ', $request->get('gejala'));
-            $keluhan = new Keluhan;
-            $keluhan->pasien_id = $id_pasien;
-            $keluhan->gejala = $gejala;
-            $keluhan->skala = (int) $request->get('feeling');
-            $keluhan->save();
-
-            // KONDISI
-            $status_kondisi = null;
-            if ($request->get('bilaAda') == 'dipercepat') {
-                $status_kondisi = 'Antrian Dipercepat';
-            }else if($request->get('bilaAda') == 'didahulukan'){
-                $status_kondisi == 'Pelayanan Didahulukan';
-            }else if($request->get('bilaAda') == 'igd'){
-                $status_kondisi = 'Diarahkan ke IGD';
-            }else if($request->get('bilaAda') == 'poliTB'){
-                $status_kondisi = 'Poli TB / Airborne IGD';
-            }else{
-                $status_kondisi = null;
+            if ($request->has('gejala')) {
+                // KELUHAN
+                $gejala = implode(', ', $request->get('gejala'));
+                $keluhan = new Keluhan;
+                $keluhan->pasien_id = $id_pasien;
+                $keluhan->gejala = $gejala;
+                $keluhan->skala = (int) $request->get('feeling');
+                $keluhan->save();
             }
-            $kondisi = new Kondisi;
-            $kondisi->pasien_id = $id_pasien;
-            $kondisi->jenis = $request->get('peny_menular');
-            $kondisi->perilaku = implode(',',$request->get('gang_kejiwaan'));
-            $kondisi->status_kondisi = $status_kondisi;
-            $kondisi->save();
+            if ($request->has('peny_menular')) {
+                // KONDISI
+                $status_kondisi = null;
+                if ($request->get('bilaAda') == 'dipercepat') {
+                    $status_kondisi = 'Antrian Dipercepat';
+                }else if($request->get('bilaAda') == 'didahulukan'){
+                    $status_kondisi == 'Pelayanan Didahulukan';
+                }else if($request->get('bilaAda') == 'igd'){
+                    $status_kondisi = 'Diarahkan ke IGD';
+                }else if($request->get('bilaAda') == 'poliTB'){
+                    $status_kondisi = 'Poli TB / Airborne IGD';
+                }else{
+                    $status_kondisi = null;
+                }
+                $kondisi = new Kondisi;
+                $kondisi->pasien_id = $id_pasien;
+                $kondisi->jenis = $request->get('peny_menular');
+                $kondisi->perilaku = implode(',',$request->get('gang_kejiwaan'));
+                $kondisi->status_kondisi = $status_kondisi;
+                $kondisi->save();
+            }
 
-            // SKRINING RESIKO JATUH
-            $resiko_jatuh = new ResikoJatuh;
-            $resiko_jatuh->pasien_id = $id_pasien;
-            $resiko_jatuh->pertanyaan_satu = $request->get('question1');
-            $resiko_jatuh->pertanyaan_dua = $request->get('question2');
-            $resiko_jatuh->pertanyaan_tiga = $request->get('question3');
-            $resiko_jatuh->status_resiko = null;
-            $resiko_jatuh->tindakan_satu = $request->has('tindakan1') ? implode(',',$request->get('tindakan1')) : null;
-            $resiko_jatuh->tindakan_dua = $request->has('tindakan2') ? implode(',',$request->get('tindakan2')) : null;
-            $resiko_jatuh->tindakan_tiga = $request->has('tindakan3') ? implode(',',$request->get('tindakan3')) : null;
-            $resiko_jatuh->save();
+            if ($request->has('question1')) {
+                // SKRINING RESIKO JATUH
+                $resiko_jatuh = new ResikoJatuh;
+                $resiko_jatuh->pasien_id = $id_pasien;
+                $resiko_jatuh->pertanyaan_satu = $request->get('question1');
+                $resiko_jatuh->pertanyaan_dua = $request->get('question2');
+                $resiko_jatuh->pertanyaan_tiga = $request->get('question3');
+                $resiko_jatuh->status_resiko = null;
+                $resiko_jatuh->tindakan_satu = $request->has('tindakan1') ? implode(',',$request->get('tindakan1')) : null;
+                $resiko_jatuh->tindakan_dua = $request->has('tindakan2') ? implode(',',$request->get('tindakan2')) : null;
+                $resiko_jatuh->tindakan_tiga = $request->has('tindakan3') ? implode(',',$request->get('tindakan3')) : null;
+                $resiko_jatuh->save();
+            }
 
-            // USIA
-            $usia  = new Usia;
-            $usia->pasien_id = $id_pasien;
-            $usia->jenis_usia = $request->get('usia') ?? null;
-            $usia->status_usia = $request->has('tindakan_usia') ? true : false;
-            $usia->save();
+            if ($request->has('usia')) {
+                // USIA
+                $usia  = new Usia;
+                $usia->pasien_id = $id_pasien;
+                $usia->jenis_usia = $request->get('usia') ?? null;
+                $usia->status_usia = $request->has('tindakan_usia') ? true : false;
+                $usia->save();
+            }
 
-            // GANGGUAN FUNGSI ORGAN
-            $gangguan = new GangguanFungsiOrgan;
-            $gangguan->pasien_id = $id_pasien;
-            $gangguan->jenis_gangguan = $request->get('gangguan') ?? null;
-            $gangguan->status_gangguan = $request->has('tindakan_gangguan') ? true : false;
-            $gangguan->save();
-
-            // KEBUTUHAN
-            $kebutuhan = new Kebutuhan;
-            $kebutuhan->pasien_id = $id_pasien;
-            $kebutuhan->status_kebutuhan = $request->get('antrian');
-            $kebutuhan->jenis_kebutuhan = $request->get('kebutuhan');
-            $kebutuhan->save();
-
-            // PRIVASI TERTENTU
-            $privasi = new PrivasiTertentu;
-            $privasi->pasien_id = $id_pasien;
-            $privasi->jenis_privasi = $request->get('privasi_tertentu') ?? null;
-            $privasi->status_privasi = $request->has('tindakan_privasi') ? true : false;
-            $privasi->save();
-
-            // BAHASA
-            $bahasa = new Bahasa;
-            $bahasa->pasien_id = $id_pasien;
-            $bahasa->jenis_bahasa = $request->get('tindakan_bahasa') ?? null;
-            $bahasa->status_bahasa = $request->has('tindakan_bahasa') ? true : false;
-            $bahasa->save();
-
+            if ($request->has('gangguan')) {
+                // GANGGUAN FUNGSI ORGAN
+                $gangguan = new GangguanFungsiOrgan;
+                $gangguan->pasien_id = $id_pasien;
+                $gangguan->jenis_gangguan = $request->get('gangguan') ?? null;
+                $gangguan->status_gangguan = $request->has('tindakan_gangguan') ? true : false;
+                $gangguan->save();
+            }
+            if ($request->has('antrian')) {
+                 // KEBUTUHAN
+                $kebutuhan = new Kebutuhan;
+                $kebutuhan->pasien_id = $id_pasien;
+                $kebutuhan->status_kebutuhan = $request->get('antrian');
+                $kebutuhan->jenis_kebutuhan = $request->get('kebutuhan');
+                $kebutuhan->save();
+            }
+            if ($request->has('privasi_tertentu')) {
+                // PRIVASI TERTENTU
+                $privasi = new PrivasiTertentu;
+                $privasi->pasien_id = $id_pasien;
+                $privasi->jenis_privasi = $request->get('privasi_tertentu') ?? null;
+                $privasi->status_privasi = $request->has('tindakan_privasi') ? true : false;
+                $privasi->save();
+            }
+            if ($request->has('tindakan_bahasa')) {
+                // BAHASA
+                $bahasa = new Bahasa;
+                $bahasa->pasien_id = $id_pasien;
+                $bahasa->jenis_bahasa = $request->get('tindakan_bahasa') ?? null;
+                $bahasa->status_bahasa = $request->has('tindakan_bahasa') ? true : false;
+                $bahasa->save();
+            }
             // FAST TRACK
             $rujukan = null;
             if ($request->get('hasil_keputusan') == 'diterima') {
@@ -168,13 +186,15 @@ class SkriningPasienController extends Controller
             }else{
                 $rujukan = null;
             };
-            $fast = new FastTrack;
-            $fast->pasien_id = $id_pasien;
-            $fast->jenis_fast = $request->has('fast_track') ? true : false;
-            $fast->kategori_fast = $request->get('hasil_keputusan') ?? null;
-            $fast->status_fast = $request->get('hasil_keputusan') ?? null;
-            $fast->rujukan = $rujukan;
-            $fast->save();
+            if ($request->has('hasil_keputusan')) {
+                $fast = new FastTrack;
+                $fast->pasien_id = $id_pasien;
+                $fast->jenis_fast = $request->has('fast_track') ? true : false;
+                $fast->kategori_fast = $request->get('hasil_keputusan') ?? null;
+                $fast->status_fast = $request->get('hasil_keputusan') ?? null;
+                $fast->rujukan = $rujukan;
+                $fast->save();
+            }
             DB::commit();
             return redirect()->route('skrining-pasien.index')->withStatus('Berhasil menambahkan data.');
         } catch (Exception $th) {
@@ -205,12 +225,12 @@ class SkriningPasienController extends Controller
 
         $skrining_tb = null;
         if ($pasien->kondisi->status_kondisi == 'Poli TB / Airborne IGD') {
-            $skrining_tb = SkriningPasienTB::where('pasien_id',$skrining->pasien_id)->first();
+            $skrining_tb = SkriningPasienTB::where('pasien_id',$skrining->pasien_id)->where('status_skrining','skrining_pasien')->first();
         }
 
         $skrining_igd = null;
         if ($pasien->Kondisi->status_kondisi == 'Diarahkan ke IGD') {
-            $skrining_igd = SkriningPasienIGD::where('pasien_id',$skrining->pasien_id)->first();
+            $skrining_igd = SkriningPasienIGD::where('pasien_id',$skrining->pasien_id)->where('status_skrining','skrining_pasien')->first();
         }
         return view('dashboard.skrinning.show',compact('pasien','skrining_tb','skrining_igd'));
 

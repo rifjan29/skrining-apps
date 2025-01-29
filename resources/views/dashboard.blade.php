@@ -17,7 +17,7 @@
                                     fill: true,
                                     backgroundColor: 'rgba(44, 120, 220, 0.2)',
                                     borderColor: 'rgba(44, 120, 220)',
-                                    data: @json($skrining_pasien_chart_data ?? [])
+                                    data: @json(array_values($skrining_pasien_chart_data ?? []))
                                 },
                                 {
                                     label: 'Skrining COVID',
@@ -25,7 +25,7 @@
                                     fill: true,
                                     backgroundColor: 'rgba(4, 209, 130, 0.2)',
                                     borderColor: 'rgba(4, 209, 130)',
-                                    data: @json($skrinig_covid_chart_data ?? [])
+                                    data: @json(array_values($skrinig_covid_chart_data ?? []))
                                 }
                             ]
                         },

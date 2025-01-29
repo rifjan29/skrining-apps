@@ -23,5 +23,6 @@ class SkriningPasienTB extends Model
         'pertanyaan_delapan',
         'pertanyaan_sembilan',
         'pertanyaan_sepuluh',
+        'status_skrining',
     ];
 }

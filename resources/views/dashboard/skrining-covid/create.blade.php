@@ -111,36 +111,36 @@
                         <!-- Tanggal dan Jam -->
                         <div class="mb-3">
                             <label for="nama" class="form-label">Nama</label>
-                            <input type="text" class="form-control" id="nama" name="nama" />
+                            <input type="text" class="form-control border" id="nama" name="nama" placeholder="Masukkan Data" />
                         </div>
                         <div class="mb-3">
                             <label for="no_rm" class="form-label">No. RM</label>
-                            <input type="text" class="form-control" id="no_rm" name="no_rm" />
+                            <input type="text" class="form-control border" placeholder="Masukkan Data" id="no_rm" name="no_rm" />
                         </div>
                         <div class="mb-3">
                             <label for="tglLahir" class="form-label">Tanggal Lahir</label>
-                            <input type="date" class="form-control" id="tglLahir" name="tglLahir" />
+                            <input type="date" class="form-control border" placeholder="Masukkan Data" id="tglLahir" name="tglLahir" />
                         </div>
                         <div class="mb-3">
                             <label for="alamat" class="form-label">Alamat</label>
-                            <textarea class="form-control" id="alamat" name="alamat"></textarea>
+                            <textarea class="form-control border" placeholder="Masukkan Data" id="alamat" name="alamat"></textarea>
                         </div>
                         <!-- Komorbid -->
                         <div class="mb-3">
                             <label for="komorbid" class="form-label">Komorbid</label>
-                            <input type="text" class="form-control" id="komorbid" name="komorbid" placeholder="Enter komorbid">
+                            <input type="text" class="form-control border" id="komorbid" name="komorbid" placeholder="Enter komorbid">
                         </div>
 
                         <!-- Pekerjaan -->
                         <div class="mb-3">
                             <label for="pekerjaan" class="form-label">Pekerjaan</label>
-                            <input type="text" class="form-control" id="pekerjaan" name="pekerjaan" placeholder="Enter Pekerjaan">
+                            <input type="text" class="form-control border" id="pekerjaan" name="pekerjaan" placeholder="Enter Pekerjaan">
                         </div>
 
                         <!-- Jenis Pasien -->
                         <div class="mb-3">
                             <label for="jenisPasien" class="form-label">Jenis Pasien</label>
-                            <select class="form-select" id="jenisPasien" name="jenisPasien">
+                            <select class="form-select border" id="jenisPasien" name="jenisPasien">
                             <option value="baru">Baru</option>
                             <option value="lama">Lama</option>
                             </select>
@@ -149,7 +149,7 @@
                         <!-- Penjamin Biaya -->
                         <div class="mb-3">
                             <label for="penjaminBiaya" class="form-label">Penjamin Biaya</label>
-                            <select class="form-select" id="penjaminBiaya" name="penjaminBiaya">
+                            <select class="form-select border" id="penjaminBiaya" name="penjaminBiaya">
                             <option value="umum">Umum</option>
                             <option value="bpjs">BPJS</option>
                             <option value="spm">SPM</option>
@@ -161,7 +161,7 @@
                         <!-- Tujuan Pelayanan -->
                         <div class="mb-3">
                             <label for="tujuanPelayanan" class="form-label">Tujuan Pelayanan</label>
-                            <select class="form-select" id="tujuanPelayanan" name="tujuanPelayanan">
+                            <select class="form-select border" id="tujuanPelayanan" name="tujuanPelayanan">
                             <option value="igd">IGD</option>
                             <option value="airborne">Airborne</option>
                             <option value="poli_klinik">Poli Klinik</option>
@@ -171,7 +171,7 @@
                         <!-- Additional Field for Poli Klinik -->
                         <div class="mb-3 d-none" id="poliKlinikGroup">
                             <label for="poliKlinikTujuan" class="form-label">Poli Klinik Tujuan</label>
-                            <input type="text" class="form-control" id="poliKlinikTujuan" name="poliKlinikTujuan" placeholder="Enter Poli Klinik Tujuan">
+                            <input type="text" class="form-control border" id="poliKlinikTujuan" name="poliKlinikTujuan" placeholder="Enter Poli Klinik Tujuan">
                         </div>
 
                         <!-- Skrining Awal -->
@@ -187,7 +187,7 @@
                                 </tr>
                             </thead>
                             <tbody class="border">
-                                <tr>
+                                <tr class="border">
                                 <td>1</td>
                                 <td>Demam / Menggigil / Gejala 1 minggu terakhir</td>
                                 <td>
@@ -197,7 +197,7 @@
                                     <input type="radio" name="gejala1" value="0" class="form-check-input gejala" />
                                 </td>
                                 </tr>
-                                <tr>
+                                <tr class="border">
                                 <td>2</td>
                                 <td>Batuk / Pilek / Sakit Tenggorokan</td>
                                 <td>
@@ -207,7 +207,7 @@
                                     <input type="radio" name="gejala2" value="0" class="form-check-input gejala" />
                                 </td>
                                 </tr>
-                                <tr>
+                                <tr class="border">
                                 <td>3</td>
                                 <td>Sesak Napas</td>
                                 <td>
@@ -217,7 +217,7 @@
                                     <input type="radio" name="gejala3" value="0" class="form-check-input gejala" />
                                 </td>
                                 </tr>
-                                <tr>
+                                <tr class="border">
                                 <td>4</td>
                                 <td>Riwayat Kontak erat dengan pasien Confirm Covid-19</td>
                                 <td>
@@ -237,13 +237,13 @@
                             </table>
                         </div>
                         <h4>Keterangan : <span id="keterangan"></span></h4>
-                        <input type="text" name="keterangan" class="keterangan_input">
-                        <input type="text" name="skor_awal" class="skor_awal">
+                        <input hidden type="text" name="keterangan" class="keterangan_input">
+                        <input hidden type="text" name="skor_awal" class="skor_awal">
                         <hr>
                         <!-- Skrining Lanjutan -->
                         <h5>B. Skrining Lanjutan (IGD dan Rawat Inap)</h5>
                         <div class="table-responsive">
-                            <table class="table table-bordered">
+                            <table class="table table-bordered border">
                                 <thead>
                                     <tr>
                                         <th>No.</th>
@@ -254,63 +254,63 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                    <tr class="border">
                                         <td>1</td>
                                         <td>Riwayat kontak erat pasien Confirm Covid-19</td>
                                         <td><input type="radio" name="gejala_lanjutan1" class="gejalaLanjutan" value="5"></td>
                                         <td><input type="radio" name="gejala_lanjutan1" class="gejalaLanjutan" value="0"></td>
                                         <td>5</td>
                                     </tr>
-                                    <tr>
+                                    <tr class="border">
                                         <td>2</td>
                                         <td>Pria</td>
                                         <td><input type="radio" name="gejala_lanjutan2" class="gejalaLanjutan" value="1"></td>
                                         <td><input type="radio" name="gejala_lanjutan2" class="gejalaLanjutan" value="0"></td>
                                         <td>1</td>
                                     </tr>
-                                    <tr>
+                                    <tr class="border">
                                         <td>3</td>
                                         <td>Usia lebih dari 44 tahun</td>
                                         <td><input type="radio" name="gejala_lanjutan3" class="gejalaLanjutan" value="1"></td>
                                         <td><input type="radio" name="gejala_lanjutan3" class="gejalaLanjutan" value="0"></td>
                                         <td>1</td>
                                     </tr>
-                                    <tr>
+                                    <tr class="border">
                                         <td>4</td>
                                         <td>Sumer (37.8 °C)</td>
                                         <td><input type="radio" name="gejala_lanjutan4" class="gejalaLanjutan" value="1"></td>
                                         <td><input type="radio" name="gejala_lanjutan4" class="gejalaLanjutan" value="0"></td>
                                         <td>1</td>
                                     </tr>
-                                    <tr>
+                                    <tr class="border">
                                         <td>5</td>
                                         <td>Demam tinggi lebih dari 38.5 °C</td>
                                         <td><input type="radio" name="gejala_lanjutan5" class="gejalaLanjutan" value="3"></td>
                                         <td><input type="radio" name="gejala_lanjutan5" class="gejalaLanjutan" value="0"></td>
                                         <td>3</td>
                                     </tr>
-                                    <tr>
+                                    <tr class="border">
                                         <td>6</td>
                                         <td>Batuk / Pilek / Diare / Hilang rasa bau (Anosmia)</td>
                                         <td><input type="radio" name="gejala_lanjutan6" class="gejalaLanjutan" value="1"></td>
                                         <td><input type="radio" name="gejala_lanjutan6" class="gejalaLanjutan" value="0"></td>
                                         <td>1</td>
                                     </tr>
-                                    <tr>
+                                    <tr class="border">
                                         <td>7</td>
                                         <td>Sesak SpO2 kurang dari 95%</td>
                                         <td><input type="radio" name="gejala_lanjutan7" class="gejalaLanjutan" value="5"></td>
                                         <td><input type="radio" name="gejala_lanjutan7" class="gejalaLanjutan" value="0"></td>
                                         <td>5</td>
                                     </tr>
-                                    <tr>
+                                    <tr class="border">
                                         <td>8</td>
                                         <td>NLR (% Neutrofil dibagi % Limfosit) ≥ 5.8</td>
                                         <td><input type="radio" name="gejala_lanjutan8" class="gejalaLanjutan" value="1"></td>
                                         <td><input type="radio" name="gejala_lanjutan8" class="gejalaLanjutan" value="0"></td>
                                         <td>1</td>
                                     </tr>
-                                    <tr>
+                                    <tr class="border">
                                         <td>9</td>
                                         <td>Pneumonia pada foto thorax</td>
                                         <td><input type="radio" name="gejala_lanjutan9" class="gejalaLanjutan" value="5"></td>
@@ -327,8 +327,8 @@
                             </table>
                         </div>
                         <h4>Keterangan: <span id="keteranganLanjutan">-</span></h4>
-                        <input type="text" name="keterangan_lanjutan" class="inputketeranganLanjutan">
-                        <input type="text" name="total_skor_lanjutan" class="skor_lanjutan">
+                        <input hidden type="text" name="keterangan_lanjutan" class="inputketeranganLanjutan">
+                        <input hidden type="text" name="total_skor_lanjutan" class="skor_lanjutan">
                     </div>
 
                 </div>

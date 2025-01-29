@@ -21,14 +21,28 @@
             font-family: 'Tinos', serif;
             font: 12pt;
         }
+        h6{
+            font-size: 10px;
+            margin-bottom: 0;
+        }
+        .form-label{
+            margin-bottom: 0;
+        }
+        p{
+            font-size: 9px;
+        }
         .emoticon-container {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 10px;
+            margin-bottom: 1px;
             position: relative;
         }
+        .form-check{
+            height: 0 !important;
+            min-height: 10px;
+        }
         .emoticon {
-            font-size: 28px;
+            font-size: 10px;
             position: absolute;
             transform: translateX(20%);
             transform: translateY(-50%);
@@ -47,11 +61,14 @@
             font-size: 9pt;
         }
         .table > :not(caption) > * > *{
-             padding: 5px;
+             padding: 0px;
         }
         .table-bondered th, td.uang{
             text-align: right !important;
             /* border: 1px solid #9896966e !important; */
+        }
+        .table-bondered th, td{
+            font-size: 9px;
         }
         .table-bondered th, td, th{
             border: 1px solid #dddada6e !important;
@@ -105,6 +122,20 @@
                 font-size: 12px !important;
             }
         /* ... the rest of the rules ... */
+        }
+        .form-range::-webkit-slider-runnable-track{
+            height: 5px;
+        }
+        .form-range::-webkit-slider-thumb{
+            height: 8px;
+            width: 8px;
+            margin-top:-.10rem;
+        }
+        .table{
+            margin-bottom: 0;
+        }
+        .form-check-label{
+            font-size: 10px;
         }
     </style>
 </head>
@@ -161,7 +192,7 @@
                 </div>
             </div>
         </div>
-        <hr>
+        <hr class="m-0">
         <div class="p-2">
             <table class="table table-bordered">
                 <thead>
@@ -176,41 +207,41 @@
                     <tr>
                         <td width="2%">1</td>
                         <td width="10%"><h6 class="fw-bold">KELUHAN</h6> (di isi oleh petugas skrining)</td>
-                        <td class="p-4">
+                        <td class="p-2">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="mb-4">
+                                    <div class="px-2">
                                         <label for="product_name" class="form-label fw-bold">Kondisi</label>
                                         @php
                                             $gejala = explode(',',$pasien->keluhan->gejala);
                                         @endphp
-                                        <div class="row">
-                                            <div class="form-check col-md-6">
+                                        <div class="row mx-2">
+                                            <div class="form-check col-md-6 p-0">
                                                 <input readonly readonly class="form-check-input" type="checkbox" {{ in_array('pusing',$gejala) ? 'checked' : '' }} name="gejala[]" value="pusing" id="pusing">
                                                 <label class="form-check-label" for="pusing">
                                                 Pusing
                                                 </label>
                                             </div>
-                                            <div class="form-check col-md-6">
+                                            <div class="form-check col-md-6 p-0">
                                                 <input readonly class="form-check-input" type="checkbox" {{ in_array('nyeri_dada',$gejala) ? 'checked' : '' }} name="gejala[]" value="nyeri_dada" id="nyeri_dada">
                                                 <label class="form-check-label" for="nyeri_dada">
                                                 Nyeri Dada
                                                 </label>
                                             </div>
-                                            <div class="form-check col-md-6">
+                                            <div class="form-check col-md-6 p-0">
                                                 <input readonly class="form-check-input" type="checkbox" {{ in_array('mual',$gejala) ? 'checked' : '' }} name="gejala[]" value="mual" id="mual">
                                                 <label class="form-check-label" for="mual">
                                                 Mual
                                                 </label>
                                             </div>
-                                            <div class="form-check col-md-6">
+                                            <div class="form-check col-md-6 p-0">
                                                 <input readonly class="form-check-input" type="checkbox" {{ in_array('sesak',$gejala) ? 'checked' : '' }} name="gejala[]" value="sesak" id="sesak">
                                                 <label class="form-check-label" for="sesak">
                                                 Sesak
                                                 </label>
                                             </div>
                                         </div>
-                                        <div class="" style="margin-top: 20px">
+                                        <div class="" style="margin-top: 10px">
                                             <div class="emoticon-container">
                                                 <span class="emoticon" style="left: 0%;">😄</span>
                                                 <span class="emoticon" style="left: 21%;">😊</span>
@@ -230,7 +261,7 @@
                                                     step="1"
                                                     value="{{ $pasien->keluhan->skala }}"
                                                 >
-                                                <div id="sliderValue" class="mt-2">Nilai: 5</div>
+                                                <div id="sliderValue" class="mt-0">Nilai: 5</div>
                                                 </div>
                                         </div>
                                         @error('no_rm')
@@ -245,7 +276,7 @@
                         <td>
                             <!-- ANTRIAN -->
                             <div class="mb-3">
-                                <h6>Antrian</h6>
+                                <h6 class="m-0">Antrian</h6>
                                 <div class="form-check">
                                     <input readonly class="form-check-input" type="radio" id="antrianDipercepat" {{ $pasien->kebutuhan->status_kebutuhan == 'dipercepat' ? 'checked' : '' }} name="antrian" value="dipercepat">
                                     <label class="form-check-label" for="antrianDipercepat">
@@ -271,7 +302,7 @@
                                 $kebutuhan = explode(',',$pasien->kebutuhan->jenis_kebutuhan);
                             @endphp
                             <div class="mb-3">
-                                <h6>Sesuai Kebutuhan</h6>
+                                <h6 class="mb-0">Sesuai Kebutuhan</h6>
                                 <div class="form-check">
                                     <input readonly class="form-check-input" type="checkbox" {{ in_array('preventif',$kebutuhan) ? 'checked' : '' }} id="preventif" name="kebutuhan" value="preventif">
                                     <label class="form-check-label" for="preventif">
@@ -305,7 +336,7 @@
                         <td>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="mb-4">
+                                    <div class="mb-1">
                                         <label for="product_name" class="form-label fw-bold">1. Peny. Menular/Sangat Infeksius/Airbone</label>
                                         <div class="d-flex">
                                             <div class="form-check mx-3">
@@ -379,7 +410,7 @@
                             <!-- BILA ADA -->
                             <div class="mb-3">
                                 <h6>Bila Ada</h6>
-                                <p>Jalankan SPO - <i>"Identifikasi Pasien Membahayakan Diri Dan Lingkungan"</i></p>
+                                <p style="font-size: 9px; margin: 0;">Jalankan SPO - <i>"Identifikasi Pasien Membahayakan Diri Dan Lingkungan"</i></p>
                                 <div class="form-check">
                                     <input readonly class="form-check-input" type="radio" {{ $pasien->kondisi->status_kondisi == 'Antrian Dipercepat' ? 'checked' : '' }} id="antrianDipercepat2" name="bilaAda" value="dipercepat">
                                     <label class="form-check-label" for="antrianDipercepat2">
@@ -411,10 +442,10 @@
                         <td>3</td>
                         <td><h6 class="fw-bold">SKRINING RISIKO JATUH </h6> (di isi oleh petugas skrining)</td>
                         <td colspan="2">
-                            <table class="table table-bordered">
+                            <table class="table table-bordered m-0">
                                 <thead class="table-light">
                                     <tr class="border">
-                                        <th>Pertanyaan</th>
+                                        <th style="font-size: 9px">Pertanyaan</th>
                                         <th>Ya</th>
                                         <th>Tidak</th>
                                         <th>Tindakan</th>
@@ -644,13 +675,18 @@
             </table>
             <!-- Kriteria FAST TRACK -->
             <div class="mb-4">
-                <h5 class="fw-bold">Kriteria FAST TRACK:</h5>
-                <p>
+                <h5 class="fw-bold m-0" style="font-size: 10px">Kriteria FAST TRACK:</h5>
+                <p class="p-0 m-0">
                     Lansia / Disabilitas / Kesulitan Berjalan, Pasien TB Paru / Bayi 0-1 bulan / BBLR / anak rewel suhu &gt; 38.5°C
                 </p>
                 <div class="form-check">
-                    <input readonly type="checkbox" class="form-check-input" {{ $pasien->FastTrack->jenis_fast == true ? "checked" : "" }} id="fast-track" name="fast_track" value="FAST TRACK">
-                    <label class="form-check-label" for="fast-track">FAST TRACK</label>
+                    <input readonly type="checkbox" class="form-check-input"
+                    @if (isset($pasien->FastTrack))
+                    {{ $pasien->FastTrack->jenis_fast == true ? "checked" : "" }}
+
+                    @endif
+                    id="fast-track" name="fast_track" value="FAST TRACK">
+                    <label class="form-check-label" style="font-size: 10px" for="fast-track">FAST TRACK</label>
                 </div>
             </div>
 
@@ -661,39 +697,81 @@
                         <!-- Pasien DITERIMA -->
                         <div class="col-md-4">
                             <div class="form-check text-start">
-                                <input readonly type="checkbox" class="form-check-input" id="checkbox-diterima" {{ $pasien->FastTrack->kategori_fast == 'diterima' ? 'checked' : '' }} name="hasil_keputusan" onchange="toggleTextarea('diterima')" value="diterima">
+                                <input readonly type="checkbox" class="form-check-input" id="checkbox-diterima"
+                                @if (isset($pasien->FastTrack))
+                                {{ $pasien->FastTrack->kategori_fast == 'diterima' ? 'checked' : '' }}
+
+                                @endif
+                                name="hasil_keputusan" onchange="toggleTextarea('diterima')" value="diterima">
                                 <label class="form-check-label fw-bold" for="checkbox-diterima">Pasien DITERIMA</label>
                                 <p>Tempat Pelayanan</p>
                             </div>
-                            <textarea id="textarea-diterima" name="textarea_diterima" class="form-control border-b {{ $pasien->FastTrack->kategori_fast == 'diterima' ? '' : 'hidden' }} mt-2" placeholder="Masukkan tempat pelayanan">{{ $pasien->FastTrack->kategori_fast == "diterima" ? $pasien->FastTrack->rujukan : '' }}</textarea>
+                            <p id="textarea-diterima" name="textarea_diterima" class=" border-b
+                            @if (isset($pasien->FastTrack))
+                            {{ $pasien->FastTrack->kategori_fast == 'diterima' ? '' : 'hidden' }} mt-2"
+
+                            @endif
+
+                            placeholder="Masukkan tempat pelayanan">
+                            @if (isset($pasien->FastTrack))
+                            {{ $pasien->FastTrack->kategori_fast == "diterima" ? $pasien->FastTrack->rujukan : '' }}
+                            @endif
+                            </p>
                         </div>
                         <!-- Pasien TIDAK DIANJURKAN -->
                         <div class="col-md-4">
                             <div class="form-check text-start">
-                                <input readonly type="checkbox" class="form-check-input" id="checkbox-tidak-dianjurkan" {{ $pasien->FastTrack->kategori_fast == 'tidak dianjurkan' ? 'checked' : '' }} name="hasil_keputusan" onchange="toggleTextarea('tidak-dianjurkan')" value="tidak dianjurkan">
+                                <input readonly type="checkbox" class="form-check-input" id="checkbox-tidak-dianjurkan"
+                                @if (isset($pasien->FastTrack))
+                                {{ $pasien->FastTrack->kategori_fast == 'tidak dianjurkan' ? 'checked' : '' }}
+                                @endif
+                                name="hasil_keputusan" onchange="toggleTextarea('tidak-dianjurkan')" value="tidak dianjurkan">
                                 <div class="d-flex">
                                     <label class="form-check-label fw-bold" for="checkbox-tidak-dianjurkan">Pasien</label>
                                     <p class="m-0 align-self-center" style="font-size: 10px"> TIDAK DIANJURKAN</p>
                                 </div>
                                 <p>Alternatif yang dianjurkan</p>
                             </div>
-                            <textarea id="textarea-tidak-dianjurkan" name="textarea_tidak_dianjurkan" class="form-control {{ $pasien->FastTrack->kategori_fast == 'tidak dianjurkan' ? '' : 'hidden' }} mt-2" placeholder="Masukkan alternatif yang dianjurkan">{{ $pasien->FastTrack->kategori_fast == "tidak dianjurkan" ? $pasien->FastTrack->rujukan : '' }}</textarea>
+                            <p id="textarea-tidak-dianjurkan" name="textarea_tidak_dianjurkan" class="
+                            @if (isset($pasien->FastTrack))
+                            {{ $pasien->FastTrack->kategori_fast == 'tidak dianjurkan' ? '' : 'hidden' }} mt-2"
+                            @endif
+
+                            placeholder="Masukkan alternatif yang dianjurkan">
+                            @if (isset($pasien->FastTrack))
+                            {{ $pasien->FastTrack->kategori_fast == "tidak dianjurkan" ? $pasien->FastTrack->rujukan : '' }}
+
+                            @endif
+                            </p>
                         </div>
                         <!-- Pasien DIRUJUK -->
                         <div class="col-md-4">
                             <div class="form-check text-start">
-                                <input readonly type="checkbox" class="form-check-input" id="checkbox-dirujuk" {{ $pasien->FastTrack->kategori_fast == 'dirujuk' ? 'checked' : '' }} name="hasil_keputusan" onchange="toggleTextarea('dirujuk')" value="dirujuk">
+                                <input readonly type="checkbox" class="form-check-input" id="checkbox-dirujuk"
+                                @if (isset($pasien->FastTrack))
+                                {{ $pasien->FastTrack->kategori_fast == 'dirujuk' ? 'checked' : '' }}
+                                @endif
+                                name="hasil_keputusan" onchange="toggleTextarea('dirujuk')" value="dirujuk">
                                 <label class="form-check-label fw-bold" for="checkbox-dirujuk">Pasien DIRUJUK</label>
                                 <p>Tempat Rujukan</p>
                             </div>
-                            <textarea id="textarea-dirujuk" name="textarea_dirujuk" class="form-control {{ $pasien->FastTrack->kategori_fast == 'dirujuk' ? '' : 'hidden' }} mt-2" placeholder="Masukkan tempat rujukan">{{ $pasien->FastTrack->rujukan }}</textarea>
+                            <p id="textarea-dirujuk" name="textarea_dirujuk" class="
+                            @if (isset($pasien->FastTrack))
+
+                            {{ $pasien->FastTrack->kategori_fast == 'dirujuk' ? '' : 'hidden' }} mt-2"
+                            @endif
+                            placeholder="Masukkan tempat rujukan">
+                            @if (isset($pasien->FastTrack))
+                            {{ $pasien->FastTrack->rujukan }}
+                            @endif
+                            </p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4 mx-3">
                     <div class="form-group">
-                        <label for="" class="form-label fw-bold">Nama Terang Petugas</label>
-                        <input readonly type="text" class="form-control mt-5" readonly value="{{ Auth::user()->name }}">
+                        <label for="" class="form-label fw-bold" style="font-size: 10px">Nama Terang Petugas</label>
+                        <p readonly type="text" class=" mt-1" readonly>{{ Auth::user()->name }}</p>
                     </div>
                 </div>
             </div>

@@ -1,6 +1,6 @@
 <aside class="navbar-aside" id="offcanvas_aside">
     <div class="aside-top">
-        <a href="index.html" class="brand-wrap d-flex justify-content-center align-items-center">
+        <a href="{{ route('dashboard') }}" class="brand-wrap d-flex justify-content-center align-items-center">
             <img src="{{ asset('images/logo.png') }}" class="logo" alt="Nest Dashboard" />
             <p class="fw-bold">SKRINNING PASIEN</p>
         </a>

@@ -122,11 +122,11 @@ class SkriningPasienCovidController extends Controller
         $skrining_lanjutan = SkriningLanjutan::where('pasien_id',$pasien->id)->get();
         $skrining_igd = null;
         if ($pasien->keterangan == 'Triase COVID (IGD)') {
-            $skrining_igd = SkriningPasienIGD::where('pasien_id',$pasien->id)->first();
+            $skrining_igd = SkriningPasienIGD::where('pasien_id',$pasien->id)->where('status_skrining','skrining_pasien_covid')->first();
         }
         $skrining_tb = null;
         if ($pasien->keterangan == 'Klinik TB') {
-            $skrining_tb = SkriningPasienTB::where('pasien_id',$pasien->id)->first();
+            $skrining_tb = SkriningPasienTB::where('pasien_id',$pasien->id)->where('status_skrining','skrining_pasien_covid')->first();
         }
 
         return view('dashboard.skrining-covid.show',compact('pasien','skrining_awal','skrining_lanjutan','skrining_igd','skrining_tb'));

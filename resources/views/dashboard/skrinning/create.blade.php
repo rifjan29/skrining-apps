@@ -3,6 +3,8 @@
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/css/datepicker.min.css" rel="stylesheet">
+         <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
         <style>
              .emoticon-container {
                 display: flex;
@@ -27,13 +29,65 @@
                 width: 100%;
                 height: 200px;
             }
-          </style>
+        </style>
+
+        <style>
+            .select2.select2-container.select2-container--default{
+                width: 900px !important;
+            }
+            .page-item.active .page-link{
+                background-color: #219ebc !important;
+                border-color: #8ecae6;
+            }
+            .active-ket{
+                display: none;
+            }
+            .select2-container--default .select2-selection--single {
+                border-radius: 0.35rem !important;
+                border: 1px solid #d1d3e2;
+                height: calc(1.95rem + 5px);
+                background: #fff;
+            }
+
+            .select2-container--default .select2-selection--single:hover,
+            .select2-container--default .select2-selection--single:focus,
+            .select2-container--default .select2-selection--single.active {
+                box-shadow: none;
+            }
+
+            .select2-container--default .select2-selection--single .select2-selection__rendered {
+                line-height: 32px;
+
+            }
+
+            .select2-container--default .select2-selection--multiple {
+                border-color: #eaeaea;
+                border-radius: 0;
+            }
+
+            .select2-dropdown {
+                border-radius: 0;
+            }
+
+            .select2-container--default .select2-results__option--highlighted[aria-selected] {
+                /* background-color: #3838eb; */
+            }
+
+            .select2-container--default.select2-container--focus .select2-selection--multiple {
+                border-color: #eaeaea;
+                background: #fff;
+
+            }
+        </style>
     @endpush
     @push('js')
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/signature_pad/dist/signature_pad.umd.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
         $(function() {
             $('input[name="tgl"]').daterangepicker({
@@ -97,6 +151,79 @@
             }
         }
     </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const isOldPatient = document.getElementById("is_old_patient");
+            const newPatientField = document.getElementById("new_patient_field");
+            const oldPatientField = document.getElementById("old_patient_field");
+            const selectNoRm = document.getElementById("select_no_rm");
+            const inputNama = document.getElementById("nama");
+            const inputTgl = document.getElementById("tgl");
+            const inputAlamat = document.getElementById("alamat");
+
+            // Toggle antara input biasa dan select2
+            isOldPatient.addEventListener("change", function () {
+                if (this.checked) {
+                    newPatientField.classList.add("d-none");
+                    oldPatientField.classList.remove("d-none");
+                } else {
+                    newPatientField.classList.remove("d-none");
+                    oldPatientField.classList.add("d-none");
+                    inputNama.value = "";
+                    inputTgl.value = "";
+                    inputAlamat.value = "";
+                }
+            });
+
+            // Inisialisasi Select2
+            $(".select2").select2({
+                ajax: {
+                    url: `{{ route('api-pasien.index') }}`,
+                    dataType: "json",
+                    allowClear: false,
+                    width:"100%",
+                    // delay: 250,
+                    data: function (params) {
+                        return {
+                            q: params.term,
+                        };
+                    },
+                    processResults: function (data) {
+                        return {
+                            results: data.map(function (item) {
+                                console.log(item);
+
+                                return { id: item.no_rm, text: item.no_rm };
+                            }),
+                        };
+                    },
+                },
+            });
+
+            // Ketika pasien dipilih, ambil datanya
+            $("#select_no_rm").on("change", function () {
+                let selectedRm = $(this).val();
+                if (!selectedRm) return;
+
+                let url = `{{ url('search-pasien') }}/${selectedRm}`;
+
+                $.ajax({
+                    type: "GET",
+                    url: url,
+                    dataType: "json", // Pastikan response JSON
+                    success: function (response) {
+                        console.log(response.nama_lengkap);
+                        inputNama.value = response.nama_lengkap;
+                        inputTgl.value = response.tanggal_lahir;
+                        inputAlamat.value = response.alamat;
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Error:", xhr.responseText);
+                    },
+                });
+            });
+        });
+    </script>
     @endpush
     <section class="content-main mb-5">
         <div class="content-header">
@@ -129,12 +256,18 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <h4>DATA DIRI PASIEN</h4>
+                                    <hr>
+                                    <label class="form-label fw-bold">
+                                        <input type="checkbox" id="is_old_patient" />
+                                        Checklist Pasien Lama
+                                    </label> <br>
                                 </div>
                                 <div class="col-md-8">
                                     <div class="row">
-                                        <div class="col-md-12">
+                                        <!-- Input biasa untuk No RM -->
+                                        <div class="col-md-12" id="new_patient_field">
                                             <div class="mb-4">
-                                                <label for="product_name" class="form-label fw-bold">No. RM</label>
+                                                <label for="no_rm" class="form-label fw-bold">No. RM</label>
                                                 <input placeholder="Masukkan Data" type="text" value="{{ old('no_rm') }}" class="form-control @error('no_rm') is-invalid @enderror" name="no_rm" />
                                                 @error('no_rm')
                                                     <div class="invalid-feedback">
@@ -143,10 +276,21 @@
                                                 @enderror
                                             </div>
                                         </div>
+
+                                        <!-- Select2 untuk pasien lama -->
+                                        <div class="col-md-12 d-none" id="old_patient_field">
+                                            <label for="select_no_rm" class="form-label fw-bold">Pilih No. RM</label>
+                                            <div class="mb-4">
+                                                <select id="select_no_rm" class="form-control form-select w-100 select2" name="no_rm_current">
+                                                    <option value="">Cari No RM...</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
                                         <div class="col-md-12">
                                             <div class="mb-4">
                                                 <label for="product_name" class="form-label fw-bold">Nama Lengkap</label>
-                                                <input placeholder="Masukkan Data" type="text" value="{{ old('nama') }}" class="form-control @error('nama') is-invalid @enderror" name="nama" />
+                                                <input placeholder="Masukkan Data" type="text" value="{{ old('nama') }}" id="nama" class="form-control @error('nama') is-invalid @enderror" name="nama" />
                                                 @error('nama')
                                                     <div class="invalid-feedback">
                                                         {{$message}}.
@@ -157,7 +301,7 @@
                                         <div class="col-md-12">
                                             <div class="mb-4">
                                                 <label for="product_name" class="form-label fw-bold">Tanggal Lahir</label>
-                                                <input placeholder="Tanggal" type="text"  value="{{ old('tgl') }}" class="form-control @error('tgl') is-invalid @enderror" name="tgl" />
+                                                <input placeholder="Tanggal" type="text"  value="{{ old('tgl') }}" id="tgl" class="form-control @error('tgl') is-invalid @enderror" name="tgl" />
                                                 @error('tgl')
                                                     <div class="invalid-feedback">
                                                         {{$message}}.
@@ -168,7 +312,7 @@
                                         <div class="col-md-12">
                                             <div class="mb-4">
                                                 <label for="product_name" class="form-label fw-bold">Alamat</label>
-                                                <textarea name="alamat" id="" class="form-control" cols="30" placeholder="Masukkan Data" rows="10">{{ old('alamat') }}</textarea>
+                                                <textarea name="alamat" id="alamat" class="form-control" cols="30" placeholder="Masukkan Data" rows="10">{{ old('alamat') }}</textarea>
                                                 @error('alamat')
                                                     <div class="invalid-feedback">
                                                         {{$message}}.

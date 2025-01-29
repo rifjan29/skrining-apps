@@ -541,6 +541,7 @@
                                     </div>
                                 @endisset
                             </div>
+                            @isset($skrining_tb)
                             <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
                                 <div class="d-flex justify-content-between mb-3">
                                     <h5>Data Pasien</h5>
@@ -693,6 +694,7 @@
                                 </form>
 
                             </div>
+                            @endisset
                         </div>
                     </div>
                 </div>

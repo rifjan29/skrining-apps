@@ -17,12 +17,32 @@
             'resources/assets/js/vendors/bootstrap.bundle.min.js',
             'resources/assets/js/main.js',
         ])
+        <style>
+            .bg-gambar{
+                position: relative;
+            }
+
+            .bg-gambar .overlay::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(27, 138, 138, 0.68); /* Adjust the opacity as needed */
+                z-index: 1;
+                width: 100%;
+            }
+            .text{
+                z-index: 99999;
+            }
+        </style>
     </head>
     <body class="font-sans text-gray-900 antialiased">
         <main>
             <header class="main-header style-2 navbar">
                 <div class="col-brand">
-                    <a href="index.html" class="brand-wrap">
+                    <a href="{{ route('dashboard') }}" class="brand-wrap">
                         <img src="{{ asset('images/logo.png') }}" class="logo" alt="Nest Dashboard" />
                     </a>
                 </div>

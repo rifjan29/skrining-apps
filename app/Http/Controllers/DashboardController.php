@@ -51,6 +51,7 @@ class DashboardController extends Controller
         $jumlah_pasien_kelamin = Pasien::select('jenis_kelamin', DB::raw('count(*) as jumlah'))
                             ->groupBy('jenis_kelamin')
                             ->get();
+
         if ($request->ajax()) {
             return response()->json([
                 'skrining_pasien' => $skrining_pasien,
@@ -94,6 +95,7 @@ class DashboardController extends Controller
             ->groupBy('month')
             ->pluck('count', 'month')
             ->toArray();
+
 
         $skrinig_covid_data = PasienCovid::selectRaw('MONTH(created_at) as month, COUNT(*) as count')
             ->when($year, function ($query, $year) {

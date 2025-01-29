@@ -106,6 +106,12 @@ class UserController extends Controller
                 $update->password = Hash::make($request->get('password'));
             }
             $update->update();
+            if ($request->has('role') && $request->get('role') != null)  {
+                DB::commit();
+                DB::table('model_has_roles')->where('model_id',$id)->delete();
+                $user->assignRole($request->input('role'));
+                return redirect()->route('user.index')->withStatus('Berhasil mengganti hak akses data');
+            }
             DB::commit();
             if (Auth::user()->role == 'Admin') {
                 return redirect()->route('user.index')->withStatus('Berhasil mengganti data.');

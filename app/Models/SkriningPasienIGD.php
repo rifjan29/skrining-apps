@@ -27,5 +27,6 @@ class SkriningPasienIGD extends Model
         'triage',
         'pemeriksaan_penunjang',
         'tindak_lanjut',
+        'status_skrining'
     ];
 }

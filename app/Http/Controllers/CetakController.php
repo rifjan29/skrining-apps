@@ -29,12 +29,12 @@ class CetakController extends Controller
 
         $skrining_tb = null;
         if ($pasien->kondisi->status_kondisi == 'Poli TB / Airborne IGD') {
-            $skrining_tb = SkriningPasienTB::where('pasien_id',$skrining->pasien_id)->first();
+            $skrining_tb = SkriningPasienTB::where('pasien_id',$skrining->pasien_id)->where('status_skrining','skrining_pasien')->first();
         }
 
         $skrining_igd = null;
         if ($pasien->Kondisi->status_kondisi == 'Diarahkan ke IGD') {
-            $skrining_igd = SkriningPasienIGD::where('pasien_id',$skrining->pasien_id)->first();
+            $skrining_igd = SkriningPasienIGD::where('pasien_id',$skrining->pasien_id)->where('status_skrining','skrining_pasien')->first();
         }
         return view('dashboard.laporan.skrining-pasien.pdf.cetak-pasien',compact('pasien','skrining_tb','skrining_igd','skrining'));
     }
@@ -55,12 +55,12 @@ class CetakController extends Controller
 
         $skrining_tb = null;
         if ($pasien->kondisi->status_kondisi == 'Poli TB / Airborne IGD') {
-            $skrining_tb = SkriningPasienTB::where('pasien_id',$skrining->pasien_id)->first();
+            $skrining_tb = SkriningPasienTB::where('pasien_id',$skrining->pasien_id)->where('status_skrining','skrining_pasien')->first();
         }
 
         $skrining_igd = null;
         if ($pasien->Kondisi->status_kondisi == 'Diarahkan ke IGD') {
-            $skrining_igd = SkriningPasienIGD::where('pasien_id',$skrining->pasien_id)->first();
+            $skrining_igd = SkriningPasienIGD::where('pasien_id',$skrining->pasien_id)->where('status_skrining','skrining_pasien')->first();
         }
         return view('dashboard.laporan.skrining-pasien.pdf.cetak-tb',compact('pasien','skrining_tb','skrining_igd','skrining'));
 
@@ -82,12 +82,12 @@ class CetakController extends Controller
 
         $skrining_tb = null;
         if ($pasien->kondisi->status_kondisi == 'Poli TB / Airborne IGD') {
-            $skrining_tb = SkriningPasienTB::where('pasien_id',$skrining->pasien_id)->first();
+            $skrining_tb = SkriningPasienTB::where('pasien_id',$skrining->pasien_id)->where('status_skrining','skrining_pasien')->first();
         }
 
         $skrining_igd = null;
         if ($pasien->Kondisi->status_kondisi == 'Diarahkan ke IGD') {
-            $skrining_igd = SkriningPasienIGD::where('pasien_id',$skrining->pasien_id)->first();
+            $skrining_igd = SkriningPasienIGD::where('pasien_id',$skrining->pasien_id)->where('status_skrining','skrining_pasien')->first();
         }
         return view('dashboard.laporan.skrining-pasien.pdf.cetak-igd',compact('pasien','skrining_tb','skrining_igd','skrining'));
     }
@@ -115,11 +115,11 @@ class CetakController extends Controller
         $skrining_lanjutan = SkriningLanjutan::where('pasien_id',$pasien->id)->get();
         $skrining_igd = null;
         if ($pasien->keterangan == 'Triase COVID (IGD)') {
-            $skrining_igd = SkriningPasienIGD::where('pasien_id',$pasien->id)->first();
+            $skrining_igd = SkriningPasienIGD::where('pasien_id',$pasien->id)->where('status_skrining','skrining_pasien_covid')->first();
         }
         $skrining_tb = null;
         if ($pasien->keterangan == 'Klinik TB') {
-            $skrining_tb = SkriningPasienTB::where('pasien_id',$pasien->id)->first();
+            $skrining_tb = SkriningPasienTB::where('pasien_id',$pasien->id)->where('status_skrining','skrining_pasien_covid')->first();
         }
         return view('dashboard.laporan.skrining-pasien.pdf.cetak-tb',compact('pasien','skrining_tb','skrining_igd','skrining'));
 
@@ -131,11 +131,11 @@ class CetakController extends Controller
         $skrining_lanjutan = SkriningLanjutan::where('pasien_id',$pasien->id)->get();
         $skrining_igd = null;
         if ($pasien->keterangan == 'Triase COVID (IGD)') {
-            $skrining_igd = SkriningPasienIGD::where('pasien_id',$pasien->id)->first();
+            $skrining_igd = SkriningPasienIGD::where('pasien_id',$pasien->id)->where('status_skrining','skrining_pasien_covid')->first();
         }
         $skrining_tb = null;
         if ($pasien->keterangan == 'Klinik TB') {
-            $skrining_tb = SkriningPasienTB::where('pasien_id',$pasien->id)->first();
+            $skrining_tb = SkriningPasienTB::where('pasien_id',$pasien->id)->where('status_skrining','skrining_pasien_covid')->first();
         }
         return view('dashboard.laporan.skrining-pasien.pdf.cetak-igd',compact('pasien','skrining_tb','skrining_igd','skrining'));
     }

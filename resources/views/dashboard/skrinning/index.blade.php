@@ -92,7 +92,7 @@
                                 <th scope="col">Kode Skrining</th>
                                 <th scope="col">No. RM</th>
                                 <th scope="col">Nama Pasien</th>
-                                <th scope="col">Status Pasien</th>
+                                <th scope="col">Tujuan Pasien</th>
                                 <th scope="col">Tanggal</th>
                                 <th scope="col" class="text-start">Action</th>
                             </tr>

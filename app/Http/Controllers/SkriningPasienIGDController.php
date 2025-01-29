@@ -90,12 +90,12 @@ class SkriningPasienIGDController extends Controller
             $skriningIGD->pasien_id = $id;
             $skriningIGD->tanggal = Carbon::parse($request->get('tanggal'));
             $skriningIGD->jam = $request->get('jam');
-            $skriningIGD->primary_survey_a = $request->get('primary_survey_a');
-            $skriningIGD->primary_survey_b = $request->get('primary_survey_b');
-            $skriningIGD->primary_survey_c = $request->get('primary_survey_c');
-            $skriningIGD->primary_survey_d = $request->get('primary_survey_d');
-            $skriningIGD->primary_survey_e = $request->get('primary_survey_e');
-            $skriningIGD->secondary_survey = $request->get('secondary_survey');
+            $skriningIGD->primary_survey_a = $request->has('primary_survey_a') ? $request->get('primary_survey_a') : '';
+            $skriningIGD->primary_survey_b = $request->has('primary_survey_b') ? $request->get('primary_survey_b') : '';
+            $skriningIGD->primary_survey_c = $request->has('primary_survey_c') ? $request->get('primary_survey_c') : '';
+            $skriningIGD->primary_survey_d = $request->has('primary_survey_d') ? $request->get('primary_survey_d') : '';
+            $skriningIGD->primary_survey_e = $request->has('primary_survey_e') ? $request->get('primary_survey_e') : '';
+            $skriningIGD->secondary_survey = $request->has('secondary_survey') ? $request->get('secondary_survey') : '';
             $skriningIGD->td = $request->get('td');
             $skriningIGD->nadi = $request->get('nadi');
             $skriningIGD->frekuensi_pernapasan = $request->get('frekuensi_pernapasan');
@@ -106,6 +106,7 @@ class SkriningPasienIGDController extends Controller
             $skriningIGD->triage = $request->get('triage');
             $skriningIGD->pemeriksaan_penunjang = json_encode($request->get('pemeriksaan_penunjang'));
             $skriningIGD->tindak_lanjut = json_encode($request->get('tindak_lanjut'));
+            $skriningIGD->status_skrining = 'skrining_pasien_covid';
             $skriningIGD->save();
 
             DB::commit();

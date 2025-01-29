@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ApiController;
 use App\Http\Controllers\CetakController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LaporanSkriningPasienController;
@@ -19,7 +20,12 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+// pasien api
+Route::get('pasien',[ApiController::class,'pasien'])->name('api-pasien.index');
+Route::get('search-pasien/{no_rm}',[ApiController::class,'getPasien'])->name('api-pasien.search');
+// export data
 Route::get('export-chart',[DashboardController::class,'pdf'])->name('dashboard.pdf');
+// Dashboard
 Route::prefix('dashboard')->group(function () {
     Route::middleware(['auth'])->group(function () {
         // Dashboard

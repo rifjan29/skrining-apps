@@ -325,18 +325,35 @@
                                                     <tr class="border">
                                                         <td>Apakah pasien merasa tidak stabil saat berdiri/berjalan?</td>
                                                         <td class="text-center">
-                                                            <input readonly type="radio" name="question1" {{ $pasien->ResikoJatuh->pertanyaan_satu == 'ya' ? 'checked' : ''  }} value="ya" class="form-check-input">
+                                                            <input readonly type="radio" name="question1"
+                                                            @if (isset($pasien->ResikoJatuh))
+                                                            {{ $pasien->ResikoJatuh->pertanyaan_satu == 'ya' ? 'checked' : ''  }}
+                                                            @endif
+
+                                                            value="ya" class="form-check-input">
                                                         </td>
                                                         <td class="text-center">
-                                                            <input readonly type="radio" name="question1" {{ $pasien->ResikoJatuh->pertanyaan_satu == 'tidak' ? 'checked' : ''  }} value="tidak" class="form-check-input">
+                                                            <input readonly type="radio" name="question1"
+                                                            @if (isset($pasien->ResikoJatuh))
+                                                            {{ $pasien->ResikoJatuh->pertanyaan_satu == 'tidak' ? 'checked' : ''  }}
+                                                            @endif
+                                                            value="tidak" class="form-check-input">
                                                         </td>
                                                         <td class="d-flex flex-row">
                                                             <div class="form-check">
-                                                                <input readonly type="checkbox" class="form-check-input" id="tindakan1-1" name="tindakan1[]" value="Perlu Brancart" {{ $pasien->ResikoJatuh->tindakan_satu == 'Perlu Brancart' ? 'checked' : '' }}>
+                                                                <input readonly type="checkbox" class="form-check-input" id="tindakan1-1" name="tindakan1[]" value="Perlu Brancart"
+                                                                @if (isset($pasien->ResikoJatuh))
+                                                                {{ $pasien->ResikoJatuh->tindakan_satu == 'Perlu Brancart' ? 'checked' : '' }}
+                                                                @endif
+                                                                >
                                                                 <label class="form-check-label" for="tindakan1-1" >Perlu Brancart</label>
                                                             </div>
                                                             <div class="form-check">
-                                                                <input readonly type="checkbox" class="form-check-input" id="tindakan1-2" name="tindakan1[]" value="Perlu Kursi Roda" {{ $pasien->ResikoJatuh->tindakan_dua == 'Perlu Kursi Roda' ? 'checked' : '' }}>
+                                                                <input readonly type="checkbox" class="form-check-input" id="tindakan1-2" name="tindakan1[]" value="Perlu Kursi Roda"
+                                                                @if (isset($pasien->ResikoJatuh))
+                                                                {{ $pasien->ResikoJatuh->tindakan_dua == 'Perlu Kursi Roda' ? 'checked' : '' }}
+                                                                @endif
+                                                                >
                                                                 <label class="form-check-label" for="tindakan1-2" >Perlu Kursi Roda</label>
                                                             </div>
                                                         </td>
@@ -345,18 +362,35 @@
                                                     <tr class="border">
                                                         <td>Apakah pasien pernah jatuh dalam setahun terakhir?</td>
                                                         <td class="text-center">
-                                                            <input readonly type="radio" name="question2" {{ $pasien->ResikoJatuh->pertanyaan_dua == 'ya' ? 'checked' : ''  }} value="ya" class="form-check-input">
+                                                            <input readonly type="radio" name="question2"
+                                                            @if (isset($pasien->ResikoJatuh))
+                                                            {{ $pasien->ResikoJatuh->pertanyaan_dua == 'ya' ? 'checked' : ''  }}
+                                                            @endif
+
+                                                            value="ya" class="form-check-input">
                                                         </td>
                                                         <td class="text-center">
-                                                            <input readonly type="radio" name="question2" {{ $pasien->ResikoJatuh->pertanyaan_dua == 'tidak' ? 'checked' : ''  }} value="tidak" class="form-check-input">
+                                                            <input readonly type="radio" name="question2"
+                                                            @if (isset($pasien->ResikoJatuh))
+                                                            {{ $pasien->ResikoJatuh->pertanyaan_dua == 'tidak' ? 'checked' : ''  }}
+                                                            @endif
+                                                            value="tidak" class="form-check-input">
                                                         </td>
                                                         <td class="d-flex">
                                                             <div class="form-check">
-                                                                <input readonly type="checkbox" class="form-check-input" id="tindakan2-1" {{ $pasien->ResikoJatuh->tindakan_dua == 'Pasang Kalung Kuning' ? 'checked' : '' }} name="tindakan2[]" value="Pasang Kalung Kuning">
+                                                                <input readonly type="checkbox" class="form-check-input" id="tindakan2-1"
+                                                                @if (isset($pasien->ResikoJatuh))
+                                                                {{ $pasien->ResikoJatuh->tindakan_dua == 'Pasang Kalung Kuning' ? 'checked' : '' }}
+                                                                @endif
+                                                                name="tindakan2[]" value="Pasang Kalung Kuning">
                                                                 <label class="form-check-label" for="tindakan2-1" >Pasang Kalung Kuning</label>
                                                             </div>
                                                             <div class="form-check">
-                                                                <input readonly type="checkbox" class="form-check-input" id="tindakan2-2" name="tindakan2[]" value="Edukasi Cegah Jatuh" {{ $pasien->ResikoJatuh->tindakan_dua == 'Edukasi Cegah Jatuh' ? 'checked' : '' }}>
+                                                                <input readonly type="checkbox" class="form-check-input" id="tindakan2-2" name="tindakan2[]" value="Edukasi Cegah Jatuh"
+                                                                @if (isset($pasien->ResikoJatuh))
+                                                                {{ $pasien->ResikoJatuh->tindakan_dua == 'Edukasi Cegah Jatuh' ? 'checked' : '' }}
+                                                                @endif
+                                                                >
                                                                 <label class="form-check-label" for="tindakan2-2">Edukasi Cegah Jatuh</label>
                                                             </div>
                                                         </td>
@@ -365,18 +399,37 @@
                                                     <tr class="border">
                                                         <td>Apakah pasien merasa khawatir jatuh?</td>
                                                         <td class="text-center">
-                                                            <input readonly type="radio" name="question3" {{ $pasien->ResikoJatuh->pertanyaan_tiga == 'ya' ? 'checked' : ''  }} value="ya" class="form-check-input">
+                                                            <input readonly type="radio" name="question3"
+                                                            @if (isset($pasien->ResikoJatuh))
+                                                            {{ $pasien->ResikoJatuh->pertanyaan_tiga == 'ya' ? 'checked' : ''  }}
+                                                            @endif
+
+                                                            value="ya" class="form-check-input">
                                                         </td>
                                                         <td class="text-center">
-                                                            <input readonly type="radio" name="question3" {{ $pasien->ResikoJatuh->pertanyaan_tiga == 'tidak' ? 'checked' : ''  }} value="tidak" class="form-check-input">
+                                                            <input readonly type="radio" name="question3"
+                                                            @if (isset($pasien->ResikoJatuh))
+                                                            {{ $pasien->ResikoJatuh->pertanyaan_tiga == 'tidak' ? 'checked' : ''  }}
+                                                            @endif
+
+                                                            value="tidak" class="form-check-input">
                                                         </td>
                                                         <td class="d-flex">
                                                             <div class="form-check">
-                                                                <input readonly type="checkbox" class="form-check-input" id="tindakan3-1" {{ $pasien->ResikoJatuh->tindakan_tiga == 'Antrian dipercepat' ? 'checked' : '' }} name="tindakan3[]" value="Antrian dipercepat">
+                                                                <input readonly type="checkbox" class="form-check-input" id="tindakan3-1"
+                                                                @if (isset($pasien->ResikoJatuh))
+                                                                {{ $pasien->ResikoJatuh->tindakan_tiga == 'Antrian dipercepat' ? 'checked' : '' }}
+                                                                @endif
+                                                                name="tindakan3[]" value="Antrian dipercepat">
                                                                 <label class="form-check-label" for="tindakan3-1">Antrian dipercepat</label>
                                                             </div>
                                                             <div class="form-check">
-                                                                <input readonly type="checkbox" class="form-check-input" id="tindakan3-2" {{ $pasien->ResikoJatuh->tindakan_tiga == 'Pelayanan didahulukan' ? 'checked' : '' }} name="tindakan3[]" value="Pelayanan didahulukan">
+                                                                <input readonly type="checkbox" class="form-check-input" id="tindakan3-2"
+                                                                @if (isset($pasien->ResikoJatuh))
+
+                                                                {{ $pasien->ResikoJatuh->tindakan_tiga == 'Pelayanan didahulukan' ? 'checked' : '' }}
+                                                                @endif
+                                                                name="tindakan3[]" value="Pelayanan didahulukan">
                                                                 <label class="form-check-label" for="tindakan3-2">Pelayanan didahulukan</label>
                                                             </div>
                                                         </td>
@@ -395,19 +448,31 @@
                                             <div class="mb-3">
                                                 <h6>Antrian</h6>
                                                 <div class="form-check">
-                                                    <input readonly class="form-check-input" type="radio" id="antrianDipercepat" {{ $pasien->kebutuhan->status_kebutuhan == 'dipercepat' ? 'checked' : '' }} name="antrian" value="dipercepat">
+                                                    <input readonly class="form-check-input" type="radio" id="antrianDipercepat"
+                                                    @if (isset($pasien->kebutuhan))
+                                                    {{ $pasien->kebutuhan->status_kebutuhan == 'dipercepat' ? 'checked' : '' }}
+                                                    @endif
+                                                    name="antrian" value="dipercepat">
                                                     <label class="form-check-label" for="antrianDipercepat">
                                                         Antrian Dipercepat
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input readonly class="form-check-input" type="radio" id="pelayananDidahulukan" {{ $pasien->kebutuhan->status_kebutuhan == 'didahulukan' ? 'checked' : '' }} name="antrian" value="didahulukan">
+                                                    <input readonly class="form-check-input" type="radio" id="pelayananDidahulukan"
+                                                    @if (isset($pasien->kebutuhan))
+                                                    {{ $pasien->kebutuhan->status_kebutuhan == 'didahulukan' ? 'checked' : '' }}
+                                                    @endif
+                                                    name="antrian" value="didahulukan">
                                                     <label class="form-check-label" for="pelayananDidahulukan">
                                                         Pelayanan Didahulukan
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input readonly class="form-check-input" type="radio" id="diarahkanKeIGD" {{ $pasien->kebutuhan->status_kebutuhan == 'igd' ? 'checked' : '' }} name="antrian" value="igd">
+                                                    <input readonly class="form-check-input" type="radio" id="diarahkanKeIGD"
+                                                    @if (isset($pasien->kebutuhan))
+                                                    {{ $pasien->kebutuhan->status_kebutuhan == 'igd' ? 'checked' : '' }}
+                                                    @endif
+                                                    name="antrian" value="igd">
                                                     <label class="form-check-label" for="diarahkanKeIGD">
                                                         Diarahkan Ke IGD
                                                     </label>
@@ -416,7 +481,10 @@
 
                                             <!-- SESUAI KEBUTUHAN -->
                                             @php
-                                                $kebutuhan = explode(',',$pasien->kebutuhan->jenis_kebutuhan);
+                                                $kebutuhan = [];
+                                                if (isset($pasien->kebutuhan)){
+                                                    $kebutuhan = explode(',',$pasien->kebutuhan->jenis_kebutuhan);
+                                                }
                                             @endphp
                                             <div class="mb-3">
                                                 <h6>Sesuai Kebutuhan</h6>
@@ -451,25 +519,42 @@
                                                 <h6>Bila Ada</h6>
                                                 <p>Jalankan SPO - <i>"Identifikasi Pasien Membahayakan Diri Dan Lingkungan"</i></p>
                                                 <div class="form-check">
-                                                    <input readonly class="form-check-input" type="radio" {{ $pasien->kondisi->status_kondisi == 'Antrian Dipercepat' ? 'checked' : '' }} id="antrianDipercepat2" name="bilaAda" value="dipercepat">
+                                                    <input readonly class="form-check-input" type="radio"
+                                                    @if (isset($pasien->kondisi))
+                                                    {{ $pasien->kondisi->status_kondisi == 'Antrian Dipercepat' ? 'checked' : '' }}
+                                                    @endif
+
+                                                    id="antrianDipercepat2" name="bilaAda" value="dipercepat">
                                                     <label class="form-check-label" for="antrianDipercepat2">
                                                         Antrian Dipercepat
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input readonly class="form-check-input" type="radio" id="pelayananDidahulukan2" {{ $pasien->kondisi->status_kondisi == 'Pelayanan Didahulukan' ? 'checked' : '' }} name="bilaAda" value="didahulukan">
+                                                    <input readonly class="form-check-input" type="radio" id="pelayananDidahulukan2"
+                                                    @if (isset($pasien->kondisi))
+                                                    {{ $pasien->kondisi->status_kondisi == 'Pelayanan Didahulukan' ? 'checked' : '' }}
+                                                    @endif
+                                                    name="bilaAda" value="didahulukan">
                                                     <label class="form-check-label" for="pelayananDidahulukan2">
                                                         Pelayanan Didahulukan
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input readonly class="form-check-input" type="radio" id="diarahkanKeIGD2" {{ $pasien->kondisi->status_kondisi == 'Diarahkan ke IGD' ? 'checked' : '' }} name="bilaAda" value="igd">
+                                                    <input readonly class="form-check-input" type="radio" id="diarahkanKeIGD2"
+                                                    @if (isset($pasien->kondisi))
+                                                    {{ $pasien->kondisi->status_kondisi == 'Diarahkan ke IGD' ? 'checked' : '' }}
+                                                    @endif
+                                                    name="bilaAda" value="igd">
                                                     <label class="form-check-label" for="diarahkanKeIGD2">
                                                         Diarahkan Ke IGD
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input readonly class="form-check-input" type="radio" id="poliTB" {{ $pasien->kondisi->status_kondisi == 'Poli TB / Airborne IGD' ? 'checked' : '' }} name="bilaAda" value="poliTB">
+                                                    <input readonly class="form-check-input" type="radio" id="poliTB"
+                                                    @if (isset($pasien->kondisi))
+                                                    {{ $pasien->kondisi->status_kondisi == 'Poli TB / Airborne IGD' ? 'checked' : '' }}
+                                                    @endif
+                                                    name="bilaAda" value="poliTB">
                                                     <label class="form-check-label" for="poliTB">
                                                         Poli TB / Airborne IGD
                                                     </label>
@@ -491,7 +576,11 @@
                                                             <ul class="list-unstyled mb-0">
                                                                 <li>
                                                                     <div class="form-check">
-                                                                        <input readonly class="form-check-input" type="radio" {{ $pasien->usia->jenis_usia == 'balita' ? 'checked' : '' }} name="usia" value="balita" id="balita">
+                                                                        <input readonly class="form-check-input" type="radio"
+                                                                        @if (isset($pasien->usia))
+                                                                        {{ $pasien->usia->jenis_usia == 'balita' ? 'checked' : '' }}
+                                                                        @endif
+                                                                        name="usia" value="balita" id="balita">
                                                                         <label class="form-check-label" for="balita">
                                                                             Balita &lt; 2 tahun kondisi rewel, lemah, apatis
                                                                         </label>
@@ -499,7 +588,11 @@
                                                                 </li>
                                                                 <li>
                                                                     <div class="form-check">
-                                                                        <input readonly class="form-check-input" type="radio" name="usia" {{ $pasien->usia->jenis_usia == 'lansia' ? 'checked' : '' }} value="lansia" id="lansia">
+                                                                        <input readonly class="form-check-input" type="radio" name="usia"
+                                                                        @if (isset($pasien->usia))
+                                                                        {{ $pasien->usia->jenis_usia == 'lansia' ? 'checked' : '' }}
+                                                                        @endif
+                                                                        value="lansia" id="lansia">
                                                                         <label class="form-check-label" for="lansia">
                                                                             Lansia, Usia &gt; 65 tahun
                                                                         </label>
@@ -509,7 +602,11 @@
                                                         </td>
                                                         <td>
                                                             <div class="form-check">
-                                                                <input readonly type="checkbox" class="form-check-input" id="tindakan-usia" {{ $pasien->usia->status_usia == true ? "checked" : '' }} name="tindakan_usia" value="Antrian dipercepat">
+                                                                <input readonly type="checkbox" class="form-check-input" id="tindakan-usia"
+                                                                @if (isset($pasien->usia))
+                                                                {{ $pasien->usia->status_usia == true ? "checked" : '' }}
+                                                                @endif
+                                                                name="tindakan_usia" value="Antrian dipercepat">
                                                                 <label class="form-check-label" for="tindakan-usia">Antrian dipercepat</label>
                                                             </div>
                                                         </td>
@@ -642,16 +739,20 @@
                                     </div>
                                     <hr>
                                         <!-- Kriteria FAST TRACK -->
-                                    <div class="mb-4">
-                                        <h5>Kriteria FAST TRACK:</h5>
-                                        <p>
-                                            Lansia / Disabilitas / Kesulitan Berjalan, Pasien TB Paru / Bayi 0-1 bulan / BBLR / anak rewel suhu &gt; 38.5°C
-                                        </p>
-                                        <div class="form-check">
-                                            <input readonly type="checkbox" class="form-check-input" {{ $pasien->FastTrack->jenis_fast == true ? "checked" : "" }} id="fast-track" name="fast_track" value="FAST TRACK">
-                                            <label class="form-check-label" for="fast-track">FAST TRACK</label>
+                                        <div class="mb-4">
+                                            <h5>Kriteria FAST TRACK:</h5>
+                                            <p>
+                                                Lansia / Disabilitas / Kesulitan Berjalan, Pasien TB Paru / Bayi 0-1 bulan / BBLR / anak rewel suhu &gt; 38.5°C
+                                            </p>
+                                            <div class="form-check">
+                                                <input readonly type="checkbox" class="form-check-input"
+                                                    @if (isset($pasien->FastTrack))
+                                                    {{ $pasien->FastTrack->jenis_fast == true ? "checked" : "" }}
+                                                    @endif
+                                                id="fast-track" name="fast_track" value="FAST TRACK">
+                                                <label class="form-check-label" for="fast-track">FAST TRACK</label>
+                                            </div>
                                         </div>
-                                    </div>
 
                                     <!-- Hasil Keputusan -->
                                     <div class="row mb-4">
@@ -660,31 +761,68 @@
                                                 <!-- Pasien DITERIMA -->
                                                 <div class="col-md-4">
                                                     <div class="form-check text-start">
-                                                        <input readonly type="checkbox" class="form-check-input" id="checkbox-diterima" {{ $pasien->FastTrack->kategori_fast == 'diterima' ? 'checked' : '' }} name="hasil_keputusan" onchange="toggleTextarea('diterima')" value="diterima">
+                                                        <input readonly type="checkbox" class="form-check-input" id="checkbox-diterima"
+                                                        @if (isset($pasien->FastTrack))
+                                                        {{ $pasien->FastTrack->kategori_fast == 'diterima' ? 'checked' : '' }}
+                                                        @endif
+                                                        name="hasil_keputusan" onchange="toggleTextarea('diterima')" value="diterima">
                                                         <label class="form-check-label fw-bold" for="checkbox-diterima">Pasien DITERIMA</label>
                                                         <p>Tempat Pelayanan</p>
                                                     </div>
-                                                    <textarea id="textarea-diterima" name="textarea_diterima" class="form-control {{ $pasien->FastTrack->kategori_fast == 'diterima' ? '' : 'hidden' }} mt-2" placeholder="Masukkan tempat pelayanan">{{ $pasien->FastTrack->kategori_fast == "diterima" ? $pasien->FastTrack->rujukan : '' }}</textarea>
+                                                    <textarea id="textarea-diterima" name="textarea_diterima" class="form-control
+                                                        @if (isset($pasien->FastTrack))
+                                                        {{ $pasien->FastTrack->kategori_fast == 'diterima' ? '' : 'hidden' }} mt-2"
+                                                        @endif
+                                                        placeholder="Masukkan tempat pelayanan">
+                                                        @if (isset($pasien->FastTrack))
+                                                        {{ $pasien->FastTrack->kategori_fast == "diterima" ? $pasien->FastTrack->rujukan : '' }}
+                                                        @endif
+                                                    </textarea>
                                                 </div>
 
                                                 <!-- Pasien TIDAK DIANJURKAN -->
                                                 <div class="col-md-4">
                                                     <div class="form-check text-start">
-                                                        <input readonly type="checkbox" class="form-check-input" id="checkbox-tidak-dianjurkan" {{ $pasien->FastTrack->kategori_fast == 'tidak dianjurkan' ? 'checked' : '' }} name="hasil_keputusan" onchange="toggleTextarea('tidak-dianjurkan')" value="tidak dianjurkan">
+                                                        <input readonly type="checkbox" class="form-check-input" id="checkbox-tidak-dianjurkan"
+                                                        @if (isset($pasien->FastTrack))
+
+                                                        {{ $pasien->FastTrack->kategori_fast == 'tidak dianjurkan' ? 'checked' : '' }}
+                                                        @endif
+                                                        name="hasil_keputusan" onchange="toggleTextarea('tidak-dianjurkan')" value="tidak dianjurkan">
                                                         <label class="form-check-label fw-bold" for="checkbox-tidak-dianjurkan">Pasien TIDAK DIANJURKAN</label>
                                                         <p>Alternatif yang dianjurkan</p>
                                                     </div>
-                                                    <textarea id="textarea-tidak-dianjurkan" name="textarea_tidak_dianjurkan" class="form-control {{ $pasien->FastTrack->kategori_fast == 'tidak dianjurkan' ? '' : 'hidden' }} mt-2" placeholder="Masukkan alternatif yang dianjurkan">{{ $pasien->FastTrack->kategori_fast == "tidak dianjurkan" ? $pasien->FastTrack->rujukan : '' }}</textarea>
+                                                    <textarea id="textarea-tidak-dianjurkan" name="textarea_tidak_dianjurkan" class="form-control
+                                                        @if (isset($pasien->FastTrack))
+                                                        {{ $pasien->FastTrack->kategori_fast == 'tidak dianjurkan' ? '' : 'hidden' }}
+                                                        @endif
+                                                     mt-2" placeholder="Masukkan alternatif yang dianjurkan">
+                                                     @if (isset($pasien->FastTrack))
+                                                     {{ $pasien->FastTrack->kategori_fast == "tidak dianjurkan" ? $pasien->FastTrack->rujukan : '' }}
+                                                     @endif
+                                                    </textarea>
                                                 </div>
 
                                                 <!-- Pasien DIRUJUK -->
                                                 <div class="col-md-4">
                                                     <div class="form-check text-start">
-                                                        <input readonly type="checkbox" class="form-check-input" id="checkbox-dirujuk" {{ $pasien->FastTrack->kategori_fast == 'dirujuk' ? 'checked' : '' }} name="hasil_keputusan" onchange="toggleTextarea('dirujuk')" value="dirujuk">
+                                                        <input readonly type="checkbox" class="form-check-input" id="checkbox-dirujuk"
+                                                        @if (isset($pasien->FastTrack))
+                                                        {{ $pasien->FastTrack->kategori_fast == 'dirujuk' ? 'checked' : '' }}
+                                                        @endif
+                                                        name="hasil_keputusan" onchange="toggleTextarea('dirujuk')" value="dirujuk">
                                                         <label class="form-check-label fw-bold" for="checkbox-dirujuk">Pasien DIRUJUK</label>
                                                         <p>Tempat Rujukan</p>
                                                     </div>
-                                                    <textarea id="textarea-dirujuk" name="textarea_dirujuk" class="form-control {{ $pasien->FastTrack->kategori_fast == 'dirujuk' ? '' : 'hidden' }} mt-2" placeholder="Masukkan tempat rujukan">{{ $pasien->FastTrack->rujukan }}</textarea>
+                                                    <textarea id="textarea-dirujuk" name="textarea_dirujuk" class="form-control
+                                                        @if (isset($pasien->FastTrack))
+                                                        {{ $pasien->FastTrack->kategori_fast == 'dirujuk' ? '' : 'hidden' }}
+                                                        @endif
+                                                     mt-2" placeholder="Masukkan tempat rujukan">
+                                                     @if (isset($pasien->FastTrack))
+                                                     {{ $pasien->FastTrack->rujukan }}
+                                                     @endif
+                                                    </textarea>
                                                 </div>
                                             </div>
                                         </div>
